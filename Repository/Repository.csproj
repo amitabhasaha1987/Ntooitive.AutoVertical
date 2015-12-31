@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AA87FDFB-EA6E-4641-A7D6-505D448FE1A0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Repository</RootNamespace>
+    <AssemblyName>Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\MongoDB.Bson.2.0.1\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\Admin\Auto\IAuto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\Admin\Auto\IProperties.cs" />
+    <Compile Include="Interfaces\Admin\Dealer\IDealer.cs" />
+    <Compile Include="Interfaces\DataTable\IDataTable.cs" />
+    <Compile Include="Interfaces\Downloader\IFetcher.cs" />
+    <Compile Include="Interfaces\IAutoVertical.cs" />
+    <Compile Include="Interfaces\ICoordinates.cs" />
+    <Compile Include="Interfaces\IDownloader.cs" />
+    <Compile Include="Interfaces\IFetchAutoDetailsFromAPI.cs" />
+    <Compile Include="Interfaces\IFetchLatLong.cs" />
+    <Compile Include="Interfaces\IFetchMarketValueFromAPIByVin.cs" />
+    <Compile Include="Interfaces\IFetchOwnershipCostFromAPIByVin.cs" />
+    <Compile Include="Interfaces\IReader.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\ITSVReader.cs" />
+    <Compile Include="Interfaces\IUnzipper.cs" />
+    <Compile Include="Interfaces\Mail\IMailBase.cs" />
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Admin\Auto\Auto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Admin\Auto\AutoDataTable.cs" />
+    <Compile Include="Models\Admin\Dealer\Dealer.cs" />
+    <Compile Include="Models\Admin\Dealer\DealerDataTable.cs" />
+    <Compile Include="Models\Admin\Dealer\User.cs" />
+    <Compile Include="Models\AdvanceSearch.cs" />
+    <Compile Include="Models\AutoAPI.cs" />
+    <Compile Include="Models\AutoCompleteDetails.cs" />
+    <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\CarListing.cs" />
+    <Compile Include="Models\CarColors.cs" />
+    <Compile Include="Models\CarYears.cs" />
+    <Compile Include="Models\ClassifiedListingRoot.cs" />
+    <Compile Include="Models\DataTable\JQueryDataTableParamModel.cs" />
+    <Compile Include="Models\Dealer.cs" />
+    <Compile Include="Models\Downloader\SaveLink.cs" />
+    <Compile Include="Models\IndexModelView.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Log.cs" />
+    <Compile Include="Models\Make.cs" />
+    <Compile Include="Models\Map\BingAddressDetails.cs" />
+    <Compile Include="Models\Map\Coordinates.cs" />
+    <Compile Include="Models\MarketValue.cs" />
+    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\OwnershipCost.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\VehicleType.cs" />
+    <Compile Include="Models\ViewModel\ManageAutoViewModel.cs" />
+    <Compile Include="Models\ViewModel\RegistartionViewModel.cs" />
+    <Compile Include="Models\ViewModel\ResetPassword.cs" />
+    <Compile Include="Models\ViewModel\UserViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

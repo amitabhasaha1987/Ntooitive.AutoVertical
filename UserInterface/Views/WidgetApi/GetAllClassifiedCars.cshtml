@@ -1,0 +1,89 @@
+﻿@{
+    Layout = null;
+
+}
+
+
+@model List< Repository.Models.CarListing>
+
+<script type="text/javascript">
+    var url_Start = '@String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority)';
+
+    jQuery(function () {
+        debugger;
+        //css
+        jQuery('head').append("<link href='" + url_Start + "/Content/Widget/style.css' rel='stylesheet' />");
+        //jQuery('head').append("<link href='" + url_Start + "/Content/Widget/style.css' rel='stylesheet' />");
+        //jQuery('head').append("<script src='" + url_Start + "/Content/Widget/jquery.carouFredSel-6.2.1-packed.js'><\/script>");
+        //jQuery('head').append("<script src='" + url_Start + "/Content/Widget/extras/loadcarofred.js'><\/script>");
+
+
+        //images
+        //jQuery('#ntooitive-prev-classifiedCar').attr('src', url_Start + '/Content/Widget/images/prev.png');
+        //jQuery('#ntooitive-next-classifiedCar').attr('src', url_Start + '/Content/Widget/images/next.png');
+    });
+</script>
+
+<div class="ntooitive-main_area">
+    <h2>RECENTLY LISTED</h2>
+    <div class="" id="ntooitive-slider-classifiedCar">
+        @{
+            double carCount = Model.Count;
+        }
+
+        @if (carCount > 0)
+        {
+            <div style="padding-bottom:15px;">
+
+                @foreach (var item in Model)
+                {
+                    var url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Home/CarDetails?Id=" + item.Id ;
+
+                    <div class="classified_cls">
+                        @if (!string.IsNullOrEmpty(item.DealerCity))
+                        {
+                            <span>@item.DealerCity @(string.IsNullOrEmpty(item.DealerPhone) == false ? item.DealerPhone : "")</span>
+                        }
+
+                        <a href="@url" target="_blank">
+                            @item.Make - @item.Year - @item.Model - $@item.Price.ToString("#,##,##0")
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+                }
+
+            </div>
+        }
+        else
+        {
+            <div class="not_found"> No data found</div>
+        }
+
+    </div>
+
+</div>
+
+<style>
+    .ntooitive-main_area {
+        width: 400px;
+        margin: 0 auto 30px;
+        border: 1px solid #dddddd;
+        position: relative;
+    }
+
+    .classified_cls {
+        padding: 15px 15px 0;
+    }
+
+        .classified_cls span {
+            font-size: 13px;
+            color: black; /*#FF8439*/
+            display: block;
+        }
+
+        .classified_cls a {
+            font-size: 13px;
+            color: #ed7028; /*#*/
+            display: block;
+        }
+</style>

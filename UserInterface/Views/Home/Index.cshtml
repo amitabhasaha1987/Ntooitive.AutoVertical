@@ -1,0 +1,623 @@
+﻿@model Repository.Models.IndexModelView
+
+<link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.vertical-tabs.css" rel="stylesheet" />
+<link href="~/Content/css/custome.css" rel="stylesheet" />
+<link href="~/Content/css/font-awesome.css" rel="stylesheet" />
+<link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+<script src="~/Content/js/bootstrap.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+
+<script src="~/Content/js/VehicleType.js"></script>
+<script src="~/Content/js/ModelTypes.js"></script>
+<link href="~/Content/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<style>
+    .ui-autocomplete {
+        max-height: 150px;
+        position: absolute;
+        overflow-y: auto;
+        z-index: 9999;
+        background-color: #fff;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+    }
+
+
+    li a::after {
+        color: red !important;
+    }
+
+
+    * html .ui-autocomplete {
+        height: 100px;
+    }
+
+    li a:hover {
+        color: fff;
+        transition: color 0.5s linear; /* vendorless fallback */
+        -o-transition: color 0.5s linear; /* opera */
+        -ms-transition: color 0.5s linear; /* IE 10 */
+        -moz-transition: color 0.5s linear; /* Firefox */
+        -webkit-transition: color 0.5s linear; /*safari and chrome */
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        if (typeof (Storage) !== "undefined") {
+            $('#ZipCode').val(localStorage.ZipCode);
+            $('#Location').val(localStorage.SearchedMiles);
+        }
+        $('.chooseByMake').click(function (e) {
+            var makeName = $(this).data("make");
+            var location = $('#Location').val();
+            var zipCode = $('#ZipCode').val();
+
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + makeName + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+        $('.chooseByVechileType').click(function (e) {
+            var vechiletype = $(this).data("vechiletype");
+            var location = $('#Location').val();
+            var zipCode = $('#ZipCode').val();
+
+            var url = '@Url.Action("CarListing", "Home")' + '?Type=' + vechiletype + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+        $('.chooseByDealer').click(function (e) {
+            debugger;
+            var dealerName = $(this).data("dealer");
+            var location = $('#Location').val();
+            var zipCode = $('#ZipCode').val();
+            var Name = "";
+            var url = '@Url.Action("CarListing", "Home")' + '?DealerName=' + dealerName + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+
+        $('#findModelPrice').click(function (e) {
+            debugger;
+            var make = $('#advanceSearch_Make option:selected').val();
+            var type = $('#advanceSearch_VehicleType option:selected').val();
+            var model = $('#advanceSearch_Model option:selected').val();
+            var minPrice = $('#advanceSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advanceSearch_MaxPrice option:selected').val();
+            var location = $('#advanceSearch_Location option:selected').val();
+            var zipCode = $('#advanceSearch_ZipCode').val();
+            if (typeof (Storage) !== "undefined") {
+                localStorage.setItem("ZipCode", zipCode);
+                localStorage.setItem("SearchedMiles", location);
+            }
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + make + '&Type=' + type + '&ModelName=' + model + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+        $('.carousel').carousel({
+            interval: 45000
+        })
+    });
+</script>
+@using (Html.BeginForm("CarListing", "Home", FormMethod.Post))
+{
+    <input type="hidden" name="ZipCode" id="ZipCode" value="123" />
+    <input type="hidden" name="Location" id="Location" />
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <div class="carousel-inner">
+
+
+                        <div class="item active">
+                            <img src="~/Content/image/banner1.jpg" style="width:100%" data-src="" alt="First slide" />
+
+                        </div>
+                        <div class="item">
+                            <img src="~/Content/image/banner2.jpg" style="width:100%" data-src="" alt="Second slide" />
+                            <div class="container">
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="~/Content/image/banner1.jpg" style="width:100%" data-src="" alt="Third slide" />
+                            <div class="container">
+                                <div class="carousel-caption">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="carousel-caption">
+                        <h1><span class="car_logo"><img src="~/Content/image/car_logo.png" /></span>SEARCH CARS SD </h1>
+                        @*<h2>FOR AS LOW AS $10 A DAY PLUS 5% DISCOUNT FOR OUR RETURNING CUSTOMERS</h2>*@
+
+                        <div class="bnnr_cnt">
+                            <div class="search_area">
+                                <input id="txtSearch" name="txtSearch" type="text" class="input_search" /> <input name="" type="submit" value="SEARCH" class="search_btt" />
+                            </div>
+
+                            <div class="banner_title">
+                                <h3>FIND CARS FOR SALE</h3>
+                            </div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs tabs-left">
+                                <li class="show_hide"><a href="#home" data-toggle="tab">Make <span class="icon">&nbsp;</span></a></li>
+                                @*<li class="show_hide1"><a href="#profile" data-toggle="tab">Vehicle Type <span class="icon">&nbsp;</span></a></li>*@
+                                <li class="show_hide2"><a href="#messages" data-toggle="tab">Model & Price <span class="icon">&nbsp;</span></a></li>
+                                @*<li class="show_hide3"><a href="#settings" data-toggle="tab">Features <span class="icon">&nbsp;</span></a></li>
+                        <li class="show_hide4"><a href="#mpg" data-toggle="tab">MPG <span class="icon">&nbsp;</span></a></li>*@
+                                <li class="show_hide5"><a href="#dealerlist" data-toggle="tab">Dealers <span class="icon">&nbsp;</span></a></li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="slidingDiv active" id="home">
+                                    <span class="show_hide"><i class="fa fa-times"></i></span>
+                                    Nearly every make and model to choose from
+                                    <ul class="make-car_list">
+                                        @foreach (var item in Model.MakeList)
+                                        {
+                                            <li> <a class="chooseByMake" data-make="@item.MakersName">@item.MakersName (@item.Count)</a> </li>
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="slidingDiv1" id="profile">
+                                    <span class="show_hide1"><i class="fa fa-times"></i></span>
+                                    What fits your lifestyle?.
+                                    <ul class="vachile-type_dtls">
+                                        @foreach (var item in Model.VehicleTypeList)
+                                        {
+                                            <li>
+                                                <img src="~/Content/image/car_img.png" alt="car_img" />
+                                                <a class="chooseByVechileType" data-vechiletype="@item.VehicleTypeName">@item.VehicleTypeName (@item.VehicleCount)</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="slidingDiv2" id="messages" style="text-align:center;">
+                                    <span class="show_hide2"><i class="fa fa-times"></i></span>
+                                    Your specific needs.
+                                    <div class="model-price_dtls">
+                                        <ul>
+                                            <li><label><span>Make</span> @Html.DropDownListFor(M => M.advanceSearch.Make, new SelectList(Model.MakeList, "MakersName", "MakersName"), "--All Makes--", new { @class = "input_makeing" })</label></li>
+                                            <li><label><span> Type</span>@Html.DropDownListFor(M => M.advanceSearch.VehicleType, new SelectList(string.Empty, "Value", "Text"), "--All Types--", new { @class = "input_makeing" })</label></li>
+                                            <li><label><span>Model</span> @Html.DropDownListFor(M => M.advanceSearch.Model, new SelectList(string.Empty, "Value", "Text"), "--All Models--", new { @class = "input_makeing" })</label></li>
+                                            <li>
+                                                <label>
+                                                    <span>Price</span>
+                                                    <select name="advanceSearch.MinPrice" class="min_price" id="advanceSearch_MinPrice">
+                                                        <option value="0">Min</option>
+                                                        <option value="10000">$10,000</option>
+                                                        <option value="12000">$12,000</option>
+                                                        <option value="14000">$14,000</option>
+                                                        <option value="15000">$15,000</option>
+                                                        <option value="16000">$16,000</option>
+                                                        <option value="18000">$18,000</option>
+                                                        <option value="20000">$20,000</option>
+                                                        <option value="22000">$22,000</option>
+                                                        <option value="24000">$24,000</option>
+                                                        <option value="25000">$25,000</option>
+                                                        <option value="26000">$26,000</option>
+                                                        <option value="28000">$28,000</option>
+                                                        <option value="30000">$30,000</option>
+                                                        <option value="35000">$35,000</option>
+                                                        <option value="40000">$40,000</option>
+                                                        <option value="45000">$45,000</option>
+                                                        <option value="50000">$50,000</option>
+                                                    </select>
+
+                                                    <select name="advanceSearch.MaxPrice" class="max_price" id="advanceSearch_MaxPrice">
+                                                        <option value="0">Max</option>
+                                                        <option value="10000">$10,000</option>
+                                                        <option value="12000">$12,000</option>
+                                                        <option value="14000">$14,000</option>
+                                                        <option value="15000">$15,000</option>
+                                                        <option value="16000">$16,000</option>
+                                                        <option value="18000">$18,000</option>
+                                                        <option value="20000">$20,000</option>
+                                                        <option value="22000">$22,000</option>
+                                                        <option value="24000">$24,000</option>
+                                                        <option value="25000">$25,000</option>
+                                                        <option value="26000">$26,000</option>
+                                                        <option value="28000">$28,000</option>
+                                                        <option value="30000">$30,000</option>
+                                                        <option value="35000">$35,000</option>
+                                                        <option value="40000">$40,000</option>
+                                                        <option value="45000">$45,000</option>
+                                                        <option value="50000">$50,000</option>
+                                                    </select>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <span>Located</span>
+                                                    <select name="advanceSearch.Location" class="input_makeing" id="advanceSearch_Location">
+                                                        <option value="0">Any</option>
+                                                        <option value="5">5 miles</option>
+                                                        <option value="10">10 miles</option>
+                                                        <option value="15">15 miles</option>
+                                                        <option value="20">20 miles</option>
+                                                        <option value="25">25 miles</option>
+                                                        <option value="50">50 miles</option>
+                                                        <option value="75">75 miles</option>
+                                                        <option value="100">100 miles</option>
+                                                        <option value="250">250 miles</option>
+                                                        <option value="500">500 miles</option>
+                                                    </select>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <span> Zip Code</span>
+                                                    @Html.TextBoxFor(M => M.advanceSearch.ZipCode, new { @class = "input_zip" })
+                                                    @*<input name="" type="text" placeholder="Zip code" class="input_zip" />*@
+                                                </label>
+                                            </li>
+                                        </ul>
+                                        <div class="clear"></div>
+                                        <input name="" type="button" value="FIND CARS" class="find_cars" id="findModelPrice" />
+                                    </div>
+                                </div>
+                                <div class="slidingDiv3" id="settings">
+                                    <span class="show_hide3"><i class="fa fa-times"></i></span>
+                                    What's most important to you?
+                                    <ul class="feature-list_dtls">
+                                        <li> <a href="#"> 3rd Rear Seat <span>(5842)</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>(5842)</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>(5842)</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="slidingDiv4" id="mpg">
+                                    <span class="show_hide4"><i class="fa fa-times"></i></span>
+                                    Miles per gallon: What's your magic number?
+                                    <h3>Show cars rated</h3>
+                                    <ul class="feature-list_dtls">
+                                        <li> <a href="#"> 3rd Rear Seat <span>(5842)</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>(5842)</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+                                        <li> <a href="#"> 3rd Rear Seat <span>5842</span></a></li>
+
+                                    </ul>
+                                </div>
+                                <div class="slidingDiv5 active" id="dealerlist">
+                                    <span class="show_hide5"><i class="fa fa-times"></i></span>
+                                    Nearly every Dealers to choose from
+                                    <ul class="make-car_list">
+                                        @foreach (var item in Model.UserList)
+                                        {
+                                            <li> <a class="chooseByDealer" data-dealer="@item.DealerName">@item.DealerName (@item.Count)</a> </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="clear"></div>
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                </div>
+            
+    
+    <div class="clear"></div>
+    <!--=======================BANNER END ============================-->
+    @*<div class="container">
+
+            <div class="about">
+                <h3>About Us</h3>
+                <span><i class="fa fa-car"></i></span>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus.
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 about_pro">
+
+                    <div class="view view-first">
+                        <img src="~/Content/image/thumb1.jpg" alt="thumb1" />
+
+                        <div class="mask">
+                            <h2>For Sale</h2>
+                        </div>
+                    </div>
+                    <h4>Portable</h4>
+                    <p>Lorem ipsum dolor dit sit amet,. Proin nibh augue, suscipit a, scelerisque sed, lacinia in.</p>
+                </div>
+                <div class="col-lg-3 about_pro">
+
+                    <div class="view view-first">
+                        <img src="~/Content/image/thumb2.jpg" alt="thumb2" />
+
+                        <div class="mask">
+                            <h2>For Sale</h2>
+                        </div>
+                    </div>
+                    <h4>Portable</h4>
+                    <p>Lorem ipsum dolor dit sit amet,. Proin nibh augue, suscipit a, scelerisque sed, lacinia in.</p>
+                </div>
+                <div class="col-lg-3 about_pro">
+
+                    <div class="view view-first">
+                        <img src="~/Content/image/thumb3.jpg" alt="thumb3" />
+
+                        <div class="mask">
+                            <h2>For Sale</h2>
+                        </div>
+                    </div>
+                    <h4>Portable</h4>
+                    <p>Lorem ipsum dolor dit sit amet,. Proin nibh augue, suscipit a, scelerisque sed, lacinia in.</p>
+                </div>
+                <div class="col-lg-3 about_pro">
+
+                    <div class="view view-first">
+                        <img src="~/Content/image/thumb1.jpg" alt="thumb1" />
+
+                        <div class="mask">
+                            <h2>For Sale</h2>
+                        </div>
+                    </div>
+                    <h4>Portable</h4>
+                    <p>Lorem ipsum dolor dit sit amet,. Proin nibh augue, suscipit a, scelerisque sed, lacinia in.</p>
+                </div>
+
+
+
+            </div>
+            <div class="clear"></div>
+            <div class="get_start">
+                <h3>Get started</h3>
+                <span><i class="fa fa-car"></i></span>
+
+            </div>
+
+        </div>*@
+
+    <!--=======================FEATURE PRO TAB ============================-->
+    @*<div class="container">
+            <ul class="nav1 nav-tabs2">
+                <li class="active"><a data-toggle="tab" href="#home">OUR CARS</a></li>
+                <li><a data-toggle="tab" href="#menu1">OUR OFFICES</a></li>
+                <li><a data-toggle="tab" href="#menu2">OUR BRANDS</a></li>
+            </ul>
+
+            <div class="tab-content_new">
+                <div id="home" class="tab-pane fade in active">
+                    <div class="col-lg-3 product_dtls">
+                        <div class="view_img view-first">
+                            <img src="~/Content/image/product1.jpg" alt="product1" />
+                            <div class="mask">
+                                <h2>View More</h2>
+                            </div>
+                        </div>
+
+                        Astonmarin V8
+                        <span>$25000</span>
+
+                    </div>
+                    <div class="col-lg-3 product_dtls">
+
+                        <img src="~/Content/image/product2.jpg" alt="product2" />
+                        Astonmarin V8
+                        <span>$25000</span>
+
+                    </div>
+                    <div class="col-lg-3 product_dtls">
+                        <img src="~/Content/image/product3.jpg" alt="product3" />
+                        Astonmarin V8
+                        <span>$25000</span>
+
+                    </div>
+                    <div class="col-lg-3 product_dtls">
+                        <img src="~/Content/image/product4.jpg" alt="product4" />
+                        Astonmarin V8
+                        <span>$25000</span>
+
+                    </div>
+                    <div class="col-lg-3 product_dtls">
+                        <img src="~/Content/image/product1.jpg" alt="product1" />
+                        Astonmarin V8
+                        <span>$25000</span>
+
+                    </div>
+                    <div class="col-lg-3 product_dtls">
+                        <img src="~/Content/image/product2.jpg" alt="product2" />
+                        Astonmarin V8
+                        <span>$25000</span>
+
+                    </div>
+                    <div class="col-lg-3 product_dtls">
+                        <img src="~/Content/image/product3.jpg" alt="product3" />
+                        Astonmarin V8
+                        <span>$25000</span>
+
+                    </div>
+                    <div class="col-lg-3 product_dtls">
+                        <img src="~/Content/image/product4.jpg" alt="product4" />
+                        Astonmarin V8
+                        <span>$25000</span>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    <div class="map">
+                        <img src="~/Content/image/map.jpg" alt="map" />
+                    </div>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    <h3>Menu 2</h3>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                </div>
+
+            </div>
+        </div>*@
+
+}
+
+<script type="text/javascript">
+
+
+    $(".slidingDiv").hide();
+    $(".show_hide").show();
+
+    $('.show_hide').click(function () {
+        $(".slidingDiv").slideToggle();
+        $(".slidingDiv1").hide();
+        $(".slidingDiv2").hide();
+        $(".slidingDiv3").hide();
+        $(".slidingDiv4").hide();
+        $(".slidingDiv5").hide();
+    });
+
+    $(".slidingDiv1").hide();
+    $(".show_hide1").show();
+
+    $('.show_hide1').click(function () {
+        $(".slidingDiv1").slideToggle();
+        $(".slidingDiv").hide();
+        $(".slidingDiv2").hide();
+        $(".slidingDiv3").hide();
+        $(".slidingDiv4").hide();
+        $(".slidingDiv5").hide();
+    });
+    $(".slidingDiv2").hide();
+    $(".show_hide2").show();
+
+    $('.show_hide2').click(function () {
+        $(".slidingDiv2").slideToggle();
+        $(".slidingDiv").hide();
+        $(".slidingDiv1").hide();
+        $(".slidingDiv3").hide();
+        $(".slidingDiv4").hide();
+        $(".slidingDiv5").hide();
+    });
+
+    $(".slidingDiv3").hide();
+    $(".show_hide3").show();
+
+    $('.show_hide3').click(function () {
+        $(".slidingDiv3").slideToggle();
+        $(".slidingDiv2").hide();
+        $(".slidingDiv1").hide();
+        $(".slidingDiv").hide();
+        $(".slidingDiv4").hide();
+        $(".slidingDiv5").hide();
+    });
+
+
+
+    $(".slidingDiv4").hide();
+    $(".show_hide4").show();
+
+    $('.show_hide4').click(function () {
+        $(".slidingDiv4").slideToggle();
+        $(".slidingDiv").hide();
+        $(".slidingDiv1").hide();
+        $(".slidingDiv3").hide();
+        $(".slidingDiv2").hide();
+        $(".slidingDiv5").hide();
+    });
+
+    $(".slidingDiv5").hide();
+    $(".show_hide5").show();
+
+    $('.show_hide5').click(function () {
+        $(".slidingDiv5").slideToggle();
+        $(".slidingDiv2").hide();
+        $(".slidingDiv1").hide();
+        $(".slidingDiv").hide();
+        $(".slidingDiv3").hide();
+        $(".slidingDiv4").hide();
+    });
+
+    $('#txtSearch').focus(function () {
+        $(".slidingDiv").hide();
+        $(".slidingDiv1").hide();
+        $(".slidingDiv3").hide();
+        $(".slidingDiv2").hide();
+        $(".slidingDiv4").hide();
+        $(".slidingDiv5").hide();
+
+    });
+
+
+
+
+
+</script>
+
+<style>
+    .show_hide {
+        display: block;
+        cursor: pointer;
+        float: right;
+    }
+
+    .show_hide1 {
+        display: block;
+        cursor: pointer;
+        float: right;
+    }
+
+    .show_hide2 {
+        display: block;
+        cursor: pointer;
+        float: right;
+    }
+
+    .show_hide3 {
+        display: block;
+        cursor: pointer;
+        float: right;
+    }
+
+    .show_hide4 {
+        display: block;
+        cursor: pointer;
+        float: right;
+    }
+    .show_hide5 {
+        display: block;
+        cursor: pointer;
+        float: right;
+    }
+
+    .car_logo {
+        margin: 0 20px 0 0;
+    }
+</style>
+
+
+
+<script src="~/Content/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#txtSearch").autocomplete({
+            source: '@Url.Action("GetAutoCompleteResult")'
+        });
+    });
+</script>

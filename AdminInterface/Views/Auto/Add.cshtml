@@ -1,0 +1,1047 @@
+﻿@model Repository.Models.Admin.Auto.Auto
+@{
+    ViewBag.Title = "Add New Car Here";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.isEdit == "F")
+{
+    <h2>&nbsp;&nbsp;&nbsp;Add New Car Here</h2>
+}
+else if (ViewBag.isEdit == "T")
+{
+    <h2>&nbsp;&nbsp;&nbsp;Edit Car Here</h2>
+}
+
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @if (ViewBag.isEdit == "F")
+                    {
+                    <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Car Added Successfully.</h4>
+                        <span></span>
+                    </div>
+                    }
+                    else if (ViewBag.isEdit == "T")
+                    {
+                    <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Car Updated Successfully.</h4>
+                        <span></span>
+                    </div>
+                    }
+
+                    <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>
+                    <div id="duplicatealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Car Already Exists</h4>
+                        <span></span>
+                    </div>
+                    <div id="validationalert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i><label id="lblMsg"></label> </h4>
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Vin")
+                        @Html.TextBoxFor(m => m.Vin, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Make")
+                        @Html.TextBoxFor(m => m.Make, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Model")
+                        @Html.TextBoxFor(m => m.Model, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Trim")
+
+                        @Html.TextBoxFor(m => m.Trim, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Year)
+                        @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Mileage")
+
+                        @Html.TextBoxFor(m => m.Mileage, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Price)
+                        @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Condition")
+
+                        @Html.TextBoxFor(m => m.Condition, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div>
+
+            @*<div class="row">
+
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Address.StateOrProvince)
+                            @Html.DropDownListFor(M => M.Address.StateOrProvince, new SelectList(Model.StateList, "StateOrProvince", "StateOrProvince"), "--All State--", new { @class = "form-control" })
+                            <input type="text" id="Other_StateOrProvince" class="form-control" style="display: none" />
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Address.City)
+                            @Html.DropDownListFor(M => M.Address.City, new SelectList(Model.CityList, "City", "City"), "--All City--", new { @class = "form-control" })
+                            <input type="text" id="Other_City" class="form-control" style="display: none" />
+                        </div>
+                    </div><!-- /.col -->
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Address.PostalCode)
+                            @Html.DropDownListFor(M => M.Address.PostalCode, new SelectList(Model.ZipCodeList, "PostalCode", "PostalCode"), "--All PostalCode--", new { @class = "form-control" })
+                            <input type="text" id="Other_PostalCode" class="form-control" style="display: none" />
+                        </div>
+                    </div><!-- /.col -->
+
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Address.FullStreetAddress)
+                            @Html.DropDownListFor(M => M.Address.FullStreetAddress, new SelectList(Model.StreetList, "FullStreetAddress", "FullStreetAddress"), "--All StreetAddress--", new { @class = "form-control" })
+                            <input type="text" id="Other_FullStreetAddress" class="form-control" style="display: none" />
+                        </div>
+                    </div><!-- /.col -->
+                </div>*@
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("InteriorColor")
+                        @Html.TextBoxFor(m => m.InteriorColor, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("ExteriorColor")
+                        @Html.TextBoxFor(m => m.ExteriorColor, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Description)
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("StockNumber")
+                        @Html.TextBoxFor(m => m.StockNumber, new { @class = "form-control" })
+
+                    </div>
+                    @*<div class="form-group">
+                            @Html.Label("PhotosUrl")
+                            @Html.TextBoxFor(m => m.PhotosUrl, new { @class = "form-control" })
+
+                        </div>*@
+                </div><!-- /.col -->
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Transmission")
+                        @Html.TextBoxFor(m => m.Transmission, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Category")
+                        @Html.TextBoxFor(m => m.Category, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Style")
+                        @Html.TextBoxFor(m => m.VehicleStyle, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Size")
+                        @Html.TextBoxFor(m => m.VehicleSize, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Dealer")
+                        @if (Model.DealerId != null)
+                        {
+                            @Html.DropDownListFor(M => M.DealerName, new SelectList(ViewBag.DealerName, "DealerId", "DealerName"), Model.DealerName, new { @class = "form-control", id = "ddDealer" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(M => M.DealerName, new SelectList(ViewBag.DealerName, "DealerId", "DealerName"), "-- All Dealer --", new { @class = "form-control", id = "ddDealer" })
+                        }
+                        <input type="text" id="Other_PostalCode" class="form-control" style="display: none" />
+                        <input type="hidden" id="hddnDealerName" value="@Model.DealerName" />
+                        @*@Html.DropDownListFor(x => x.DealerId,"@Model.DealerId")
+                            )*@
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                </div><!-- /.col -->
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    @*<div class="form-group pull-left">
+                            @if (!string.IsNullOrEmpty(@Model.Vin))
+                            {
+                                <div class="form-group">
+                                    <a class="btn btn-primary" href="javascript:ManageAuto('@Model.Vin');">Manage</a>
+                                </div>
+                            }
+                        </div>*@
+                    <div class="form-group pull-left">
+                        @if (ViewBag.isEdit == "F")
+                        {
+                            <a href="/auto/auto-listing?liId=carList" class="btn btn-info">Back</a>
+                        }
+                        else if (ViewBag.isEdit == "T")
+                        {
+                            <a href="/dealer/manage/@Model.DealerId" class="btn btn-info">Back</a>
+                        }
+
+                    </div>
+                    &nbsp; &nbsp;
+                    <div class="form-group pull-right">
+
+                        @if (ViewBag.isEdit == "F")
+                        {
+                            <input type="button" class="btn btn-primary btn-block " value="Add" onclick="AddAuto(this)" data-loading-text="Please wait..." />
+                        }
+                        else if (ViewBag.isEdit == "T")
+                        {
+                            <input type="button" class="btn btn-primary btn-block " value="Update" onclick="EditAuto(this)" data-loading-text="Please wait..." />
+                        }
+
+                    </div><!-- /.form-group -->
+                </div><!-- /.col -->
+            </div>
+        </div><!-- /.box-body -->
+    </div>
+    <div class="box box-default hide" id="UploadImageBox">
+        <div class="box-header with-border">
+            <h3 class="box-title">Upload office Image</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="sucessUploadImagealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Image Uploaded Successfully.</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <label class="pull-left">Upload office image here </label>
+                </div>
+                <div class="col-md-4">
+                    <form id="fileupload" action="/Upload/OfficeImageUpload.ashx" method="POST" enctype="multipart/form-data">
+                        <div class="fileupload-buttonbar">
+                            <div class="span7">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="fa fa-plus-circle"></i>
+                                    <input type="file" name="files[]">
+                                </span>
+                                <button type="button" id="btnImageUpload" class="btn btn-primary start" data-uniqueid='@Model.Vin' data-type='newhome'>
+                                    <i class="fa fa-cloud-upload"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+                        @*<a data-toggle="tooltip" data-placement="top" title="Click here to send activation mail." id="btnactive_" class="btn btn-block btn-primary pull-right" href="javascript:SendActivationMail();">Upload</a>*@
+                    </form>
+
+                </div>
+
+            </div><!-- /.col -->
+        </div>
+    </div>
+</section>
+@section css
+{
+    <style>
+        .top-buffer {
+            margin-top: 20px;
+        }
+    </style>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+
+}
+@section scripts
+{
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js?cdv=1"></script>
+
+    <script src="~/Content/FileuploaderJs/tmpl.min.js"></script>
+    <script src="~/Content/FileuploaderJs/canvas-to-blob.min.js"></script>
+    <script src="~/Content/FileuploaderJs/load-image.min.js"></script>
+    <script src="~/Content/FileuploaderJs/bootstrap-image-gallery.min.js"></script>
+
+
+
+    <script src="~/Content/FileuploaderJs/jquery.iframe-transport.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ip.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ui.js"></script>
+
+    <script src="~/Content/FileuploaderJs/locale.js"></script>
+
+    <script src="~/Scripts/custom/CityList.js"></script>
+    <script src="~/Scripts/custom/FullAddressList.js"></script>
+    <script src="~/Scripts/custom/ZipCodeList.js"></script>
+    <script src="~/Scripts/custom/Address_click.js"></script>
+    <script src="~/Scripts/custom/PostalCode_Click.js"></script>
+    <script>
+        $(function () {
+            'use strict';
+            debugger;
+            // Initialize the jQuery File Upload widget:
+
+        });
+    </script>
+
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade">
+            <td class="preview"><span class="fade"></span></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else if (o.files.valid && !i) { %}
+
+            <td class="start">
+                {% if (!o.options.autoUpload) { %}
+                <button style="display:none" class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+                {% } %}
+            </td>
+            {% } else { %}
+            <td colspan="2"></td>
+            {% } %}
+
+        </tr>
+        {% } %}
+    </script>
+    <script id="template-download" type="text/x-tmpl">
+        Uploaded successfully!
+    </script>
+    <script>
+        function ManageAuto(Vin) {
+            debugger;
+            var uniqueid = Vin;
+            window.location.href = "/auto/auto/manage/" + uniqueid;
+        }
+        function EditAuto(btn) {
+            debugger;
+            var Vin = $("#Vin").val();
+            var Make = $("#Make").val();
+            var Model = $("#Model").val();
+            var Trim = $("#Trim").val();
+            var Year = $("#Year").val();
+            var Mileage = $("#Mileage").val();
+
+            var Price = $("#Price").val();
+            var Condition = $("#Condition").val();
+            var InteriorColor = $("#InteriorColor").val();
+            var ExteriorColor = $("#ExteriorColor").val();
+            var Description = $("#Description").val();
+            //var PhotosUrl = $("#PhotosUrl").val();
+            var StockNumber = $("#StockNumber").val();
+            var Transmission = $("#Transmission").val();
+            var Category = $("#Category").val();
+            var VehicleStyle = $("#VehicleStyle").val();
+            var VehicleSize = $("#VehicleSize").val();
+            //var DealerId = $("#ddDealer").val();
+            var DealerName = null;
+            if ($("#ddDealer").val() == "") {
+                DealerName = $("#hddnDealerName").val();
+            }
+            else {
+                DealerName = $("#ddDealer option:selected").text();
+            }
+
+
+            //var Transmission = $("#Transmission").val();hddnDealerName
+
+            //if (State == "Other") {
+            //    State = $("#Other_StateOrProvince").val();
+            //}
+            //if (City == "Other") {
+            //    City = $("#Other_City").val();
+            //}
+            //if (FullStreetAddress == "Other") {
+            //    FullStreetAddress = $("#Other_FullStreetAddress").val();
+            //}
+            //if (PostalCode == "Other") {
+            //    PostalCode = $("#Other_PostalCode").val();
+            //}
+
+            var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var numbers = /^[0-9]+$/;
+
+            @*{
+
+           var formData = {
+
+               "Vin": Vin,
+               "Make": Make,
+               "Model": Model,
+               "SubModel": SubModel,
+               "Year": Year,
+               "Mileage": Mileage,
+
+               "Price": Price,
+               "Condition": Condition,
+               "InteriorColor": InteriorColor,
+               "ExteriorColor": ExteriorColor,
+               "Description": Description,
+               "PhotosUrl": PhotosUrl,
+               "Transmission": Transmission,
+               "Category": Category,
+               "DealerName": DealerName
+           };
+
+        $(btn).button('loading').queue(function () {
+            $.ajax({
+                url: "/auto/add-auto",
+                type: "POST",
+                contentType: 'application/json',
+                dataType: "json",
+                data: JSON.stringify(formData),
+                success: function (data, textStatus, jqXHR) {
+                    if (data.success) {
+                        $("#sucessalert").show();
+                        $('#sucessalert').delay(5000).fadeOut(400);
+                        $('#UploadImageBox').removeClass('hide');
+                        $('#fileupload').fileupload();
+
+                        $('#fileupload').fileupload('option', {
+                            maxFileSize: 500000000,
+                            resizeMaxWidth: 1920,
+                            resizeMaxHeight: 1200,
+                            formData: { OfficeId: '@Model.Vin' }
+
+                        });
+                    } else {
+                        $("#failurealert").show();
+                        $('#failurealert').delay(5000).fadeOut(400);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#failurealert").show();
+                    $('#failurealert').delay(5000).fadeOut(400);
+                },
+                compete: function () {
+                    $(btn).button('reset');
+                    $(btn).dequeue();
+                }
+            });
+        });
+    }*@
+            //-------------------------------------------------------------------------------------------------------
+            if (Vin == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Vin Cannot be null");
+                $("#Vin").focus();
+            } else if (Make == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Make Cannot be null");
+                $("#Make").focus();
+            } else if (Model == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Model Cannot be null");
+                $("#Model").focus();
+            } else if (Trim == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Trim Cannot be null");
+                $("#Trim").focus();
+            } else if (Year == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Year Cannot be null");
+                $("#Year").focus();
+            }
+            else if (!numbers.test(Year)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid Year.");
+                $("#Year").focus();
+            }
+            else if (Mileage == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Mileage Cannot be null");
+                $("#Mileage").focus();
+            }
+            else if (!numbers.test(Mileage)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid Mileage.");
+                $("#Mileage").focus();
+            }
+            else if (Price == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Price Cannot be null");
+                $("#Price").focus();
+            } else if (!numbers.test(Price)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid Price.");
+                $("#Price").focus();
+            } else if (Condition == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Condition Cannot be null");
+                $("#Condition").focus();
+            } else if (InteriorColor == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("InteriorColor Cannot be null");
+                $("#InteriorColor").focus();
+            } else if (ExteriorColor == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("ExteriorColor Cannot be null");
+                $("#ExteriorColor").focus();
+            } else if (Description == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Description Cannot be null");
+                $("#Description").focus();
+            }
+                //else if (PhotosUrl == "") {
+                //    $("#validationalert").show();
+                //    $('#validationalert').delay(3000).fadeOut(400);
+                //    $("#lblMsg").html("PhotosUrl Cannot be null");
+                //    $("#PhotosUrl").focus();
+                //}
+            else if (StockNumber == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Stock Number Cannot be null");
+                $("#StockNumber").focus();
+            }
+                //else if (!numbers.test(StockNumber)) {
+                //    $("#validationalert").show();
+                //    $('#validationalert').delay(3000).fadeOut(400);
+                //    $("#lblMsg").html("Please enter valid Stock Number.");
+                //    $("#StockNumber").focus();
+                //}
+            else if (Transmission == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Transmission Cannot be null");
+                $("#Transmission").focus();
+            }
+            else if (Category == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Category Cannot be null");
+                $("#Category").focus();
+            }
+            else if (VehicleSize == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Size Cannot be null");
+                $("#VehicleSize").focus();
+            }
+            else if (VehicleStyle == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Style Cannot be null");
+                $("#VehicleStyle").focus();
+            }
+            else if (DealerName == "" || DealerName == "0") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Dealer Cannot be null");
+            }
+            else {
+
+                var formData = {
+
+                    "Vin": Vin,
+                    "Make": Make,
+                    "Model": Model,
+                    "Trim": Trim,
+                    "Year": Year,
+                    "Mileage": Mileage,
+
+                    "Price": Price,
+                    "Condition": Condition,
+                    "InteriorColor": InteriorColor,
+                    "ExteriorColor": ExteriorColor,
+                    "Description": Description,
+                    "StockNumber": StockNumber,
+                    // "PhotosUrl": PhotosUrl,
+                    "VehicleStyle": VehicleStyle,
+                    "VehicleSize": VehicleSize,
+                    "Transmission": Transmission,
+                    "Category": Category,
+                    //"DealerId": DealerId
+                    "DealerName": DealerName
+
+                };
+
+                $(btn).button('loading').queue(function () {
+                    $.ajax({
+                        url: "/auto/edit-auto",
+                        type: "POST",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        data: JSON.stringify(formData),
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.success) {
+                                $('#ddDealer').text(data.DealerName).attr("selected", "selected");
+                                $("#sucessalert").show();
+                                $('#sucessalert').delay(5000).fadeOut(400);
+                                $('#UploadImageBox').removeClass('hide');
+                                $('#fileupload').fileupload();
+
+                                $('#fileupload').fileupload('option', {
+                                    maxFileSize: 500000000,
+                                    resizeMaxWidth: 1920,
+                                    resizeMaxHeight: 1200,
+                                    formData: { OfficeId: '@Model.Vin' }
+
+                                });
+                            } else {
+                                $("#failurealert").show();
+                                $('#failurealert').delay(5000).fadeOut(400);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        },
+                        compete: function () {
+                            $(btn).button('reset');
+                            $(btn).dequeue();
+                        }
+                    });
+                });
+            }
+
+        }
+        //--------------------------------------------------------------------------------------------------------------
+        function AddAuto(btn) {
+            debugger;
+            var Vin = $("#Vin").val();
+            var Make = $("#Make").val();
+            var Model = $("#Model").val();
+            var Trim = $("#Trim").val();
+            var Year = $("#Year").val();
+            var Mileage = $("#Mileage").val();
+
+            var Price = $("#Price").val();
+            var Condition = $("#Condition").val();
+            var InteriorColor = $("#InteriorColor").val();
+            var ExteriorColor = $("#ExteriorColor").val();
+            var Description = $("#Description").val();
+            //var PhotosUrl = $("#PhotosUrl").val();
+            var StockNumber = $("#StockNumber").val();
+            var Transmission = $("#Transmission").val();
+            var Category = $("#Category").val();
+            var VehicleStyle = $("#VehicleStyle").val();
+            var VehicleSize = $("#VehicleSize").val();
+            var DealerName = $("#ddDealer option:selected").text();
+            //var Transmission = $("#Transmission").val();
+
+            //if (State == "Other") {
+            //    State = $("#Other_StateOrProvince").val();
+            //}
+            //if (City == "Other") {
+            //    City = $("#Other_City").val();
+            //}
+            //if (FullStreetAddress == "Other") {
+            //    FullStreetAddress = $("#Other_FullStreetAddress").val();
+            //}
+            //if (PostalCode == "Other") {
+            //    PostalCode = $("#Other_PostalCode").val();
+            //}
+
+            var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var numbers = /^[0-9]+$/;
+
+            @*{
+
+                var formData = {
+
+                    "Vin": Vin,
+                    "Make": Make,
+                    "Model": Model,
+                    "SubModel": SubModel,
+                    "Year": Year,
+                    "Mileage": Mileage,
+
+                    "Price": Price,
+                    "Condition": Condition,
+                    "InteriorColor": InteriorColor,
+                    "ExteriorColor": ExteriorColor,
+                    "Description": Description,
+                    "PhotosUrl": PhotosUrl,
+                    "Transmission": Transmission,
+                    "Category": Category,
+                    "DealerName": DealerName
+                };
+
+                $(btn).button('loading').queue(function () {
+                    $.ajax({
+                        url: "/auto/add-auto",
+                        type: "POST",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        data: JSON.stringify(formData),
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.success) {
+                                $("#sucessalert").show();
+                                $('#sucessalert').delay(5000).fadeOut(400);
+                                $('#UploadImageBox').removeClass('hide');
+                                $('#fileupload').fileupload();
+
+                                $('#fileupload').fileupload('option', {
+                                    maxFileSize: 500000000,
+                                    resizeMaxWidth: 1920,
+                                    resizeMaxHeight: 1200,
+                                    formData: { OfficeId: '@Model.Vin' }
+
+                                });
+                            } else {
+                                $("#failurealert").show();
+                                $('#failurealert').delay(5000).fadeOut(400);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        },
+                        compete: function () {
+                            $(btn).button('reset');
+                            $(btn).dequeue();
+                        }
+                    });
+                });
+            }*@
+            //-------------------------------------------------------------------------------------------------------
+            if (Vin == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Vin Cannot be null");
+                $("#Vin").focus();
+            } else if (Make == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Make Cannot be null");
+                $("#Make").focus();
+            } else if (Model == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Model Cannot be null");
+                $("#Model").focus();
+            } else if (Trim == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("SubModel Cannot be null");
+                $("#Trim").focus();
+            } else if (Year == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Year Cannot be null");
+                $("#Year").focus();
+            }
+            else if (!numbers.test(Year)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid Year.");
+                $("#Year").focus();
+            }
+            else if (Mileage == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Mileage Cannot be null");
+                $("#Mileage").focus();
+            }
+            else if (!numbers.test(Mileage)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid Mileage.");
+                $("#Mileage").focus();
+            }
+            else if (Price == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Price Cannot be null");
+                $("#Price").focus();
+            } else if (!numbers.test(Price)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid Price.");
+                $("#Price").focus();
+            } else if (Condition == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Condition Cannot be null");
+                $("#Condition").focus();
+            } else if (InteriorColor == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("InteriorColor Cannot be null");
+                $("#InteriorColor").focus();
+            } else if (ExteriorColor == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("ExteriorColor Cannot be null");
+                $("#ExteriorColor").focus();
+            } else if (Description == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Description Cannot be null");
+                $("#Description").focus();
+            }
+                //else if (PhotosUrl == "") {
+                //    $("#validationalert").show();
+                //    $('#validationalert').delay(3000).fadeOut(400);
+                //    $("#lblMsg").html("PhotosUrl Cannot be null");
+                //    $("#PhotosUrl").focus();
+                //}
+            else if (StockNumber == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Stock Number Cannot be null");
+                $("#StockNumber").focus();
+            }
+                //else if (!numbers.test(StockNumber)) {
+                //    $("#validationalert").show();
+                //    $('#validationalert').delay(3000).fadeOut(400);
+                //    $("#lblMsg").html("Please enter valid Stock Number.");
+                //    $("#StockNumber").focus();
+                //}
+            else if (Transmission == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Transmission Cannot be null");
+                $("#Transmission").focus();
+            }
+            else if (Category == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Category Cannot be null");
+                $("#Category").focus();
+            }
+            else if (VehicleSize == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Size Cannot be null");
+                $("#VehicleSize").focus();
+            }
+            else if (VehicleStyle == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Style Cannot be null");
+                $("#VehicleStyle").focus();
+            }
+            else if (DealerName == "" || DealerName == "0") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Dealer Cannot be null");
+            }
+            else {
+
+                var formData = {
+
+                    "Vin": Vin,
+                    "Make": Make,
+                    "Model": Model,
+                    "Trim": Trim,
+                    "Year": Year,
+                    "Mileage": Mileage,
+
+                    "Price": Price,
+                    "Condition": Condition,
+                    "InteriorColor": InteriorColor,
+                    "ExteriorColor": ExteriorColor,
+                    "Description": Description,
+                    "StockNumber": StockNumber,
+                    // "PhotosUrl": PhotosUrl,
+                    "Transmission": Transmission,
+                    "Category": Category,
+                    "VehicleStyle": VehicleStyle,
+                    "VehicleSize": VehicleSize,
+                    "DealerName": DealerName
+                };
+
+                $(btn).button('loading').queue(function () {
+                    $.ajax({
+                        url: "/auto/add-auto",
+                        type: "POST",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        data: JSON.stringify(formData),
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.success) {
+                                $("#sucessalert").show();
+                                $('#sucessalert').delay(5000).fadeOut(400);
+                                $('#UploadImageBox').removeClass('hide');
+                                $('#fileupload').fileupload();
+
+                                $('#fileupload').fileupload('option', {
+                                    maxFileSize: 500000000,
+                                    resizeMaxWidth: 1920,
+                                    resizeMaxHeight: 1200,
+                                    formData: { OfficeId: '@Model.Vin' }
+
+                                });
+                                //}
+                            } else {
+                                if (data.IsDuplicate == "T") {
+                                    $("#duplicatealert").show();
+                                    $('#duplicatealert').delay(5000).fadeOut(400);
+                                }
+                                else {
+                                    $("#failurealert").show();
+                                    $('#failurealert').delay(5000).fadeOut(400);
+                                }
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        },
+                        compete: function () {
+                            $(btn).button('reset');
+                            $(btn).dequeue();
+                        }
+                    });
+                });
+            }
+
+        }
+
+        (function ($) {
+            $('#btnImageUpload').on('click', function () {
+                $("#sucessUploadImagealert").show();
+                $('#sucessUploadImagealert').delay(5000).fadeOut(400);
+            });
+        })(jQuery);
+
+    </script>
+}

@@ -1,0 +1,13 @@
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\bin\Debug\Utility.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\bin\Debug\Utility.pdb
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\bin\Debug\AutoMapper.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\bin\Debug\Repository.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\bin\Debug\MongoDB.Bson.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\bin\Debug\Repository.pdb
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\bin\Debug\AutoMapper.xml
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\bin\Debug\MongoDB.Bson.xml
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\obj\Debug\Utility.csprojResolveAssemblyReference.cache
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\obj\Debug\Utility.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Utility\obj\Debug\Utility.pdb

@@ -1,0 +1,857 @@
+﻿@model UserInterface.Models.ListingViewModel
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "CarListing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.vertical-tabs.css" rel="stylesheet" />
+<link href="~/Content/css/custome.css" rel="stylesheet" />
+<link href="~/Content/css/font-awesome.css" rel="stylesheet" />
+<link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+<link href="~/Content/css/slider.css" rel="stylesheet" />
+<script type="text/javascript">
+
+    function onImgErrorSmall(source) {
+        source.src = "/Content/image/thumb.jpg";
+        source.onerror = "";
+        return true;
+    }
+    $(function () {
+
+
+        $('.abcd').click(function () {
+            debugger;
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+            name = name.slice(0, -1);
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location option:selected').val();
+            var zipCode = $('advSearch_ZipCode').val();
+
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+            modelname = modelname.slice(0, -1);
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('.models').click(function () {
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+            modelname = modelname.slice(0, -1);
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+            name = name.slice(0, -1);
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location option:selected').val();
+            var zipCode = $('advSearch_ZipCode').val();
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_ExSelectedColor').change(function () {
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location option:selected').val();
+            var zipCode = $('advSearch_ZipCode').val();
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+            modelname = modelname.slice(0, -1);
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+            name = name.slice(0, -1);
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_InSelectedColor').change(function () {
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location option:selected').val();
+            var zipCode = $('advSearch_ZipCode').val();
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+            modelname = modelname.slice(0, -1);
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+            name = name.slice(0, -1);
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_MinPrice').change(function () {
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location option:selected').val();
+            var zipCode = $('advSearch_ZipCode').val();
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+            modelname = modelname.slice(0, -1);
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+            name = name.slice(0, -1);
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_MaxPrice').change(function () {
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location option:selected').val();
+            var zipCode = $('advSearch_ZipCode').val();
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+            modelname = modelname.slice(0, -1);
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+            name = name.slice(0, -1);
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_Mileage').change(function () {
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location option:selected').val();
+            var zipCode = $('advSearch_ZipCode').val();
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+            modelname = modelname.slice(0, -1);
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+            name = name.slice(0, -1);
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_FromYear').change(function () {
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location option:selected').val();
+            var zipCode = $('advSearch_ZipCode').val();
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+            modelname = modelname.slice(0, -1);
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+            name = name.slice(0, -1);
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_ToYear').change(function () {
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location option:selected').val();
+            var zipCode = $('advSearch_ZipCode').val();
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+            modelname = modelname.slice(0, -1);
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+            name = name.slice(0, -1);
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_SortingOrder').change(function () {
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location option:selected').val();
+            var zipCode = $('advSearch_ZipCode').val();
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+            modelname = modelname.slice(0, -1);
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+            name = name.slice(0, -1);
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_MinPrice').val('@Model.advSearch.MinPrice');
+        $('#advSearch_MaxPrice').val('@Model.advSearch.MaxPrice');
+        $('#advSearch_Mileage').val('@Model.advSearch.Mileage');
+        $('#advSearch_SortingOrder').val('@Model.advSearch.SortingOrder');
+
+        var name = GetParameterValues('Name');
+        var modelName = GetParameterValues('ModelName');
+        var minprice = GetParameterValues('MinPrice');
+        var maxprice = GetParameterValues('MaxPrice');
+        var milage = GetParameterValues('Mileage');
+        var fromyear = GetParameterValues('FromYear');
+        var toyear = GetParameterValues('ToYear');
+        var exColor = GetParameterValues('ExteriorColor');
+        var inColor = GetParameterValues('InteriorColor');
+        debugger;
+        if (name) {
+
+            $('#demo3').attr("aria-expanded", "true");
+            $('#demo3').addClass('collapse in');
+        }
+
+        if (modelName) {
+            $('#demoModel').attr("aria-expanded", "true");
+            $('#demoModel').addClass('collapse in');
+        }
+        debugger;
+        if (minprice != 0 && typeof (minprice) != "undefined") {
+            $('#demo').attr("aria-expanded", "true");
+            $('#demo').addClass('collapse in');
+        }
+
+        if (maxprice != 0 && typeof (maxprice) != "undefined") {
+            $('#demo').attr("aria-expanded", "true");
+            $('#demo').addClass('collapse in');
+        }
+
+        if (milage !== "0" && typeof (milage) != "undefined") {
+            $('#demo1').attr("aria-expanded", "true");
+            $('#demo1').addClass('collapse in');
+        }
+
+        if (fromyear) {
+            $('#demo2').attr("aria-expanded", "true");
+            $('#demo2').addClass('collapse in');
+        }
+
+        if (toyear) {
+            $('#demo2').attr("aria-expanded", "true");
+            $('#demo2').addClass('collapse in');
+        }
+
+        if (exColor) {
+            $('#demo7').attr("aria-expanded", "true");
+            $('#demo7').addClass('collapse in');
+        }
+
+        if (inColor) {
+            $('#demo8').attr("aria-expanded", "true");
+            $('#demo8').addClass('collapse in');
+        }
+    });
+</script>
+<script type="text/javascript">
+    function GetParameterValues(param) {
+        var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < url.length; i++) {
+            var urlparam = url[i].split('=');
+            if (urlparam[0] == param) {
+                return urlparam[1];
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#btnSearchByZip').click(function (e) {
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location option:selected').val();
+            var zipCode = $('#advSearch_ZipCode').val();
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+            modelname = modelname.slice(0, -1);
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+            name = name.slice(0, -1);
+            if (typeof (Storage) !== "undefined") {
+                localStorage.setItem("ZipCode", zipCode);
+                localStorage.setItem("SearchedMiles", location);
+            }
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#btnPopup').click(function (e) {
+            var exteriorColor = $('#advSearch_ExSelectedColor option:selected').val();
+            var interiorColor = $('#advSearch_InSelectedColor option:selected').val();
+            var minPrice = $('#advSearch_MinPrice option:selected').val();
+            var maxPrice = $('#advSearch_MaxPrice option:selected').val();
+            var mileage = $('#advSearch_Mileage option:selected').val();
+            var fromYear = $('#advSearch_FromYear option:selected').val();
+            var toYear = $('#advSearch_ToYear option:selected').val();
+            var sortBy = $('#advSearch_SortingOrder option:selected').val();
+            var location = $('#advSearch_Location_Popup option:selected').val();
+            var zipCode = $('#advSearch_ZipCode_Popup').val();
+            var modelname = '';
+            $('.models:checked').each(function () {
+                modelname += $(this).attr('data-text') + ",";
+            });
+
+            modelname = modelname.slice(0, -1);
+            var name = '';
+            $('.abcd:checked').each(function () {
+                name += $(this).attr('data-text') + ",";
+            });
+
+            name = name.slice(0, -1);
+            if (typeof (Storage) !== "undefined") {
+                localStorage.setItem("ZipCode", zipCode);
+                localStorage.setItem("SearchedMiles", location);
+                $('#advSearch_Location').removeAttr('selected');
+                $("#advSearch_Location option[value='" + localStorage.SearchedMiles + "']").attr("selected", "selected");
+            }
+            var url = '@Url.Action("CarListing", "Home")' + '?Name=' + name + '&ModelName=' + modelname + '&ExteriorColor=' + exteriorColor + '&InteriorColor=' + interiorColor + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&Mileage=' + mileage + '&FromYear=' + fromYear + '&ToYear=' + toYear + '&SortBy=' + sortBy + '&Location=' + location + '&ZipCode=' + zipCode;
+            window.location.href = url;
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(window).load(function () {
+        if ((localStorage.ZipCode == '' && localStorage.SearchedMiles == 0) || (typeof (localStorage.ZipCode) === "undefined" && typeof (localStorage.SearchedMiles) === 'undefined')) {
+            $('#myModal').modal('show');
+        } else {
+            $('#advSearch_ZipCode').val(localStorage.getItem("ZipCode"));
+            $('#advSearch_Location').removeAttr('selected');
+            $("#advSearch_Location option[value='" + localStorage.SearchedMiles + "']").attr("selected", "selected");
+        }
+    });
+</script>
+
+<style type="text/css">
+    .featured {
+        background: #00a0d5;
+        height: 30px;
+        padding: 0 25px 0 10px;
+        border-radius: 0 0 30px 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #fff;
+        line-height: 30px;
+        font-size: 14px;
+        text-shadow: 1px 1px 1px #000;
+    }
+
+    .condition {
+        background: #fec601;
+        height: 30px;
+        padding: 0 10px 0 25px;
+        border-radius: 0 0 0 30px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: #000;
+        line-height: 26px;
+        font-size: 13px;
+        font-weight: bold;
+        text-shadow: 1px 1px 1px #fff;
+    }
+</style>
+
+<link href="~/Content/css/overlay.css" rel="stylesheet" />
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Enter Your Zipcode <i class="fa fa-car"></i></h4>
+            </div>
+            <div class="modal-body">
+
+                <span> Search radius </span><select name="advSearch.Location_Popup" id="advSearch_Location_Popup" class="search_radius">
+                    <option value="0">Any</option>
+                    <option value="5">5 miles</option>
+                    <option value="10">10 miles</option>
+                    <option value="15">15 miles</option>
+                    <option value="20">20 miles</option>
+                    <option value="25">25 miles</option>
+                    <option value="50">50 miles</option>
+                    <option value="75">75 miles</option>
+                    <option value="100">100 miles</option>
+                    <option value="250" selected="selected">250 miles</option>
+                    <option value="500">500 miles</option>
+                </select>
+                <input name="advSearch.ZipCode_Popup" id="advSearch_ZipCode_Popup" type="text" class="enter_zip" placeholder="ENTER YOU ZIPCODE">
+                <p> Discover the nearest dealer to buy a car.</p>
+
+            </div>
+            <div class="modal-footer">
+                <input name="btnPopup" id="btnPopup" type="button" value="Submit" class="enter_zip-btt">
+                <button type="button" class="skip_btt" data-dismiss="modal">Skip</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <div class="col-lg-3">
+        <h1 style="position:initial !important" class="adv_search-txt"> Your Selection : </h1>
+        <div class="adv_search-title">
+            <ul>
+                <li>
+                    <button type="button" id="search_price" class="property_type active" data-toggle="collapse" data-target="#demo">Price</button>
+                    <div id="demo" class="collapse">
+                        <div class="price_contaner_min">
+                            @*<ul>
+                                <li>*@
+                            <label>
+                                @*<span>Price</span>*@
+                                <select name="advSearch.MinPrice" class="list-min_price" id="advSearch_MinPrice">
+                                    <option value="0">Min</option>
+                                    <option value="10000">$10,000</option>
+                                    <option value="12000">$12,000</option>
+                                    <option value="14000">$14,000</option>
+                                    <option value="15000">$15,000</option>
+                                    <option value="16000">$16,000</option>
+                                    <option value="18000">$18,000</option>
+                                    <option value="20000">$20,000</option>
+                                    <option value="22000">$22,000</option>
+                                    <option value="24000">$24,000</option>
+                                    <option value="25000">$25,000</option>
+                                    <option value="26000">$26,000</option>
+                                    <option value="28000">$28,000</option>
+                                    <option value="30000">$30,000</option>
+                                    <option value="35000">$35,000</option>
+                                    <option value="40000">$40,000</option>
+                                    <option value="45000">$45,000</option>
+                                    <option value="50000">$50,000</option>
+                                </select>
+
+                                <select name="advSearch.MaxPrice" class="list-min_price" id="advSearch_MaxPrice">
+                                    <option value="0">Max</option>
+                                    <option value="10000">$10,000</option>
+                                    <option value="12000">$12,000</option>
+                                    <option value="14000">$14,000</option>
+                                    <option value="15000">$15,000</option>
+                                    <option value="16000">$16,000</option>
+                                    <option value="18000">$18,000</option>
+                                    <option value="20000">$20,000</option>
+                                    <option value="22000">$22,000</option>
+                                    <option value="24000">$24,000</option>
+                                    <option value="25000">$25,000</option>
+                                    <option value="26000">$26,000</option>
+                                    <option value="28000">$28,000</option>
+                                    <option value="30000">$30,000</option>
+                                    <option value="35000">$35,000</option>
+                                    <option value="40000">$40,000</option>
+                                    <option value="45000">$45,000</option>
+                                    <option value="50000">$50,000</option>
+                                </select>
+                            </label>
+                            @*</li>
+                                </ul>*@
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button type="button" id="search_milage" class="property_type active" data-toggle="collapse" data-target="#demo1">Mileage </button>
+                    <div id="demo1" class="collapse">
+                        <div class="price_contaner_min">
+                            <select name="advSearch.Mileage" class="adv_search_chosearea" id="advSearch_Mileage">
+                                <option value="0">No Max</option>
+                                <option value="10000">10,000 or less</option>
+                                <option value="20000">20,000 or less</option>
+                                <option value="30000">30,000 or less</option>
+                                <option value="40000">40,000 or less</option>
+                                <option value="50000">50,000 or less</option>
+                                <option value="60000">60,000 or less</option>
+                                <option value="70000">70,000 or less</option>
+                                <option value="80000">80,000 or less</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <button type="button" id="search_year" class="property_type active" data-toggle="collapse" data-target="#demo2">Year</button>
+                    <div id="demo2" class="collapse">
+                        <div class="price_contaner_min">
+                            <label>
+
+                                @Html.DropDownListFor(M => M.advSearch.FromYear, new SelectList(Model.advSearch.YearList), "From Year", new { @class = "list-min_price" })
+                                @Html.DropDownListFor(M => M.advSearch.ToYear, new SelectList(Model.advSearch.YearList), "To Year", new { @class = "list-min_price" })
+
+                            </label>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <button id="make_advSearch" type="button" class="property_type active" data-toggle="collapse" data-target="#demo3">Make</button>
+                    <div id="demo3" class="collapse">
+                        <div class="price_contaner">
+                            <ul>
+                                @for (var j = 0; j < Model.advSearch.Makes.Count(); j++)
+                                {
+                                    //if (!string.IsNullOrEmpty(Model.advSearch.Makes[j].MakersName))
+                                    //{
+                                    <li>
+                                        <label>
+
+                                            @Html.HiddenFor(x => x.advSearch.Makes[j].MakersName)
+                                            @Html.CheckBoxFor(x => x.advSearch.Makes[j].IsSelected, new { @id = "ListingViewModel_advSearch_Makes", @class = "abcd", @data_text = Model.advSearch.Makes[j].MakersName })
+                                            @Html.DisplayFor(x => x.advSearch.Makes[j].MakersName)
+
+
+                                        </label>
+                                    </li>
+                                    // }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button type="button" id="model_advSearch" class="property_type active" data-toggle="collapse" data-target="#demoModel">Model</button>
+                    <div id="demoModel" class="collapse">
+                        <div class="price_contaner">
+                            <ul>
+                                @{if (Model.advSearch.Models != null)
+                                {
+                                    for (int count = 0; count < Model.advSearch.Models.Count(); count++)
+                                    {
+                                        var element = @Model.advSearch.Models.ElementAt(count);
+                                        <h3>@element.Key</h3>
+                                        for (int i = 0; i < Model.advSearch.Models.ElementAt(count).Value.Count(); i++)
+                                        {
+                                            <li>
+                                                <label>
+                                                    @Html.HiddenFor(x => x.advSearch.Models.ElementAt(count).Value[i].ModelsName)
+                                                    @Html.CheckBoxFor(x => x.advSearch.Models.ElementAt(count).Value[i].IsSelected, new { @class = "models", @data_text = Model.advSearch.Models.ElementAt(count).Value[i].ModelsName })
+                                                    @Html.DisplayFor(x => x.advSearch.Models.ElementAt(count).Value[i].ModelsName)
+                                                </label>
+                                            </li>
+                                        }
+                                    }
+                                }
+                                <br />
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+
+                <li>
+                    <button type="button" id="btnExColor" class="property_type active" data-toggle="collapse" data-target="#demo7">Exterior Color</button>
+                    <div id="demo7" class="collapse">
+                        <div class="price_contaner_min">
+                            @Html.DropDownListFor(M => M.advSearch.ExSelectedColor, new SelectList(Model.advSearch.ExteriorColor), "Select Color", new { @class = "adv_search_chosearea" })
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button type="button" id="btnInColor" class="property_type active" data-toggle="collapse" data-target="#demo8">Interior Color</button>
+                    <div id="demo8" class="collapse">
+                        <div class="price_contaner_min">
+                            @Html.DropDownListFor(M => M.advSearch.InSelectedColor, new SelectList(Model.advSearch.InteriorColor), "Select Color", new { @class = "adv_search_chosearea" })
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+
+        </div>
+    </div>
+
+    <div class="col-lg-9">
+        @if (Model.advSearch.Dealers != null)
+        {
+            if (@Model.ProfileImage != null)
+            {
+                <div style="height:70px;width:70px;float:left;padding-right:10px"><img src="@Model.ProfileImage" /></div>
+            }
+            <div class="vechicles_showlist">
+
+                @Model.advSearch.Dealer Listing (@Model.RecordCount Available Vehicles)
+            </div>
+        }
+        else
+        {
+            <div class="vechicles_showlist">@Model.RecordCount Available Vehicles</div>
+        }
+
+
+        <div class="short_catagory">
+            <select name="advSearch.SortingOrder" class="short_by" id="advSearch_SortingOrder">
+                <option value="0">Sort By</option>
+                <option value="Price_Asc">Price: Low to High</option>
+                <option value="Price_Desc">Price: High to Low</option>
+                <option value="Mileage_Asc">Miles: Low to High</option>
+                <option value="Mileage_Desc">Miles: High to Low</option>
+                <option value="Year_Asc">Year: Low to High</option>
+                <option value="Year_Desc">Year: High to Low</option>
+                <option value="Make_Asc">Make: A to Z</option>
+                <option value="Make_Desc">Make: Z to A</option>
+            </select>
+        </div>
+
+        <div class="car_reserve-dtls">
+            <ul>
+
+                <li>
+                    <span>Located:</span>
+                    <select name="advSearch.Location" id="advSearch_Location" class="near_by">
+                        <option value="0">Any</option>
+                        <option value="5">5 miles</option>
+                        <option value="10">10 miles</option>
+                        <option value="15">15 miles</option>
+                        <option value="20">20 miles</option>
+                        <option value="25">25 miles</option>
+                        <option value="50">50 miles</option>
+                        <option value="75">75 miles</option>
+                        <option value="100">100 miles</option>
+                        <option value="250">250 miles</option>
+                        <option value="500">500 miles</option>
+                    </select>
+                </li>
+                <li>
+                    <input name="advSearch.ZipCode" id="advSearch_ZipCode" type="text" class="car_reserve-zip" placeholder="Enter Zipcode">
+                </li>
+                <li><input name="btnSearchByZip" id="btnSearchByZip" type="button" value="Search" class="car_search-btt" /></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <div class="vechicles-list_dtls">
+
+            <ul>
+                @{if (Model.CarListing.Count() != 0)
+                {
+                    foreach (var item in Model.CarListing)
+                    {
+                        <li>
+                            <div class="list_thumb view-first" style="position:relative;">
+                                <img style="height: auto; width: auto;" src=@(item.PhotosUrl == null ? "/Content/image/No-image-found.jpg" : item.PhotosUrl[0]) onerror="onImgErrorSmall(this)" alt="@item.Year @item.Make @item.Model" />
+                                @*<img style="height: 189px; width: 189px;" src=@(item.PhotosUrl == null ? "/Content/image/thumb.jpg" : "/Content/image/No-image-found.jpg") onerror="onImgErrorSmall(this)" alt="@item.Year @item.Make @item.Model" />*@
+                                @{
+                        if (item.ExtProperties == null)
+                        {
+                            @*<div class="featured">Not Featured</div>*@
+                        }
+                        else if (item.ExtProperties.IsFeatured == true)
+                        {
+                            <div class="featured">Featured</div>
+                        }
+                        else if (item.ExtProperties.IsSpotlight == true)
+                        {
+                            <div class="featured">Spot Light</div>
+                        }
+                                }
+
+
+                                <div class="condition">@item.Condition</div>
+                                <div class="listOver_box">
+                                    <ul>
+                                        <li>Mileage<br />@item.Mileage</li>
+                                        <li>Stock No.<br />@item.StockNumber</li>
+                                        <li>Transmission<br />@item.Transmission</li>
+                                    </ul>
+                                </div>
+                                <div class="mask-layer">
+                                    <h2>
+                                        <a href="/Home/CarDetails?Id=@item.Id">Details</a>
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="list_right-pennal">
+                                <h3><a href="/Home/CarDetails?Id=@item.Id">@item.Year @item.Make @item.Model</a> <span><a href="#">Price : $@item.Price</a></span></h3>
+                                @*<p>@Html.Raw(HttpUtility.UrlDecode(item.Description))</p>*@
+                                <div class="pro_dtls">
+                                    <ul>
+                                        @*<li>Mileage <span>@item.Mileage</span></li>*@
+                                        @*<li><div>Condition</div>  <span>@item.Condition</span></li>*@
+                                        @if (!string.IsNullOrEmpty(@item.InteriorColor))
+                                        {
+                                            <li><div>InteriorColor</div> <span>@item.InteriorColor</span></li>
+                                        }
+                                        <li><div>ExteriorColor</div>  <span>@item.ExteriorColor</span></li>
+                                        @*<li>StockNumber <span>@item.StockNumber</span></li>*@
+                                        @*<li>Transmission  <span>@item.Transmission</span></li>*@
+                                        <li><div>Location</div>  <span>@item.DealerAddress</span></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+
+                    }
+                }
+                else
+                {
+                    <li>
+                        <h3 style="padding:20px; font-size:16px; text-align:center;">No Data Found.</h3>
+                    </li>
+                }}
+            </ul>
+        </div>
+
+        <div style="text-align:center">
+            @Html.PagedListPager(Model.CarPageListings, page => Url.Action("CarListing", new
+   {
+       page,
+       Name = Request.QueryString["name"],
+       ModelName = Request.QueryString["modelname"],
+       ExteriorColor = Request.QueryString["exteriorColor"],
+       InteriorColor = Request.QueryString["interiorColor"],
+       MinPrice = Request.QueryString["minPrice"],
+       MaxPrice = Request.QueryString["maxPrice"],
+       Mileage = Request.QueryString["mileage"],
+       FromYear = Request.QueryString["fromYear"],
+       ToYear = Request.QueryString["toYear"],
+       SortBy = Request.QueryString["sortBy"],
+       Location = Request.QueryString["location"],
+       ZipCode = Request.QueryString["zipCode"],
+       DealerName = Request.QueryString["DealerName"]
+   }))
+
+        </div>
+
+    </div>
+</div>
+
+<script src="~/Content/js/bootstrap-slider.js"></script>
+
+<script type="text/javascript">
+    $("#ex9").slider({
+        precision: 2,
+        value: 8.115 // Slider will instantiate showing 8.12 due to specified precision
+    });
+</script>

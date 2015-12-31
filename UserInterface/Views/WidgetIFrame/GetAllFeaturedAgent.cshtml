@@ -1,0 +1,96 @@
+﻿@{
+    Layout = null;
+
+}
+
+
+@model List<Repository.Models.Admin.Dealer.User>
+
+               <link href="/Content/Widget/style.css" rel="stylesheet" />
+
+              @*<link href="~/Content/css/bootstrap.css" rel="stylesheet" />*@
+               <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+               <script src="/Content/Widget/jquery.carouFredSel-6.2.1-packed.js"></script>
+               <script src="/Content/Widget/extras/loadcarofred.js"></script>
+    <script type="text/javascript">
+        var url_Start = '@String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority)';
+
+        jQuery(function () {
+            debugger;
+            //css
+            //jQuery('head').append("<link href='" + url_Start + "/Content/Widget/style.css' rel='stylesheet' />");
+
+            //jQuery('head').append("<script src='" + url_Start + "/Content/Widget/jquery.carouFredSel-6.2.1-packed.js'><\/script>");
+            //jQuery('head').append("<script src='" + url_Start + "/Content/Widget/extras/loadcarofred.js'><\/script>");
+
+            //images
+            jQuery('#ntooitive-prev-agent').attr('src', url_Start + '/Content/Widget/images/prev.png');
+            jQuery('#ntooitive-next-agent').attr('src', url_Start + '/Content/Widget/images/next.png');
+        });
+    </script>
+
+
+    <div class="ntooitive-main_area  col-lg-4 col-sm-4" >
+        <h2>FEATURED DEALERS</h2>
+        <div class="ntooitive-main_content" id="ntooitive-slider-agent">
+            @{
+                double agentCount = Model.Count;
+                int agentperpage = 2;
+                var totalPage = Math.Ceiling(agentCount / agentperpage);
+                Console.WriteLine(totalPage);
+                var noimage_url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Content/image/No-image-found.jpg";
+            }
+            @if (agentCount > 0)
+            {
+                for (int i = 0; i < totalPage; i++)
+                {
+                    <div class="ntooitive-slide">
+                        @*@for (int j = 0; j < agentperpage; j++)
+                            {*@
+                        <ul>
+                            @for (int k = 0; k < agentperpage; k++)
+                            {
+                                var currentUser = i * agentperpage + k;
+                                Console.WriteLine(currentUser);
+                                if (currentUser < agentCount)
+                                {
+                                    <li>
+                                        <div class="ntooitive-property_img">
+                                            <img src="@(Model.ElementAt(currentUser).ProfileImage != null ? Model.ElementAt(currentUser).ProfileImage : noimage_url )" alt=""
+                                                 onerror="this.onerror=null;this.src='@noimage_url';" />
+                                        </div>
+                                        @{
+                                    var url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Home/CarListing?DealerName=" + @Model.ElementAt(currentUser).DealerName;
+                                        }
+
+                                        <div class="ntooitive-property_details">
+                                            <h3>@Model.ElementAt(currentUser).DealerName</h3>
+                                            <p>@Model.ElementAt(currentUser).DealerPhone</p>
+                                            <p>@Model.ElementAt(currentUser).DealerEmail</p>
+                                            <a href="@url" class="ntooitive-view_button" target="_blank">View Details</a>
+                                        </div>
+                                        <div class="clear"></div>
+
+
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+                        @*}*@
+
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="not_found"> No data found</div>
+            }
+        </div>
+
+        <a href="#" id="ntooitive-prev"><img id="ntooitive-prev-agent" alt="" /></a>
+        <a href="#" id="ntooitive-next"><img id="ntooitive-next-agent" alt="" /></a>
+    </div>
+
+
+   

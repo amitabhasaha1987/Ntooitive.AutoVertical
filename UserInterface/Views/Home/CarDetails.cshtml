@@ -1,0 +1,948 @@
+﻿@model Repository.Models.Admin.Auto.Auto
+@{
+    ViewBag.Title = "CarDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.vertical-tabs.css" rel="stylesheet" />
+<link href="~/Content/css/custome.css" rel="stylesheet" />
+<link href="~/Content/css/font-awesome.css" rel="stylesheet" />
+<link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/css/galleria.classic.css" rel="stylesheet" />
+<link href="~/Content/css/slider.css" rel="stylesheet" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+<link rel="stylesheet" href="http://www.vinaudit.com/widgets/marketvalue/styles.css">
+
+<script src="~/Content/js/bootstrap.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+
+
+@Html.Raw(Model.ChatScript)
+<style>
+    .demo_mv_wrapper {
+        box-sizing: border-box;
+        width: 730px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 0 15px;
+        box-shadow: 3px 3px 3px #6e6e6e;
+        background-color: #fff;
+    }
+</style>
+<style type="text/css">
+    body {
+        margin: 0px;
+    }
+
+        body.home, body.sectionfront, body.galleries, body.staff, body.poll-page {
+            background: #FFF;
+        }
+
+    .drop {
+        display: none !important;
+    }
+
+    .page-content {
+        font-family: Georgia, serif;
+        font-size: 1.063em;
+        line-height: 1.6em;
+    }
+
+    html, body {
+        background: #fff;
+        margin: 0;
+    }
+
+    body {
+        border-top: 4px solid #000;
+    }
+
+    .content {
+        color: #777;
+        font: 12px/1.4 "helvetica neue",arial,sans-serif;
+        width: 620px;
+        margin: 20px auto;
+    }
+
+    h1 {
+        font-size: 12px;
+        font-weight: normal;
+        color: #ddd;
+        margin: 0;
+    }
+
+    p {
+        margin: 0 0 20px;
+    }
+
+    a {
+        color: #22BCB9;
+        text-decoration: none;
+    }
+
+    .cred {
+        margin-top: 20px;
+        font-size: 11px;
+    }
+
+    .galleria-lightbox-prev {
+        font: bold 30px/40px arial,sans-serif !important;
+    }
+
+    .galleria-lightbox-next {
+        font: bold 30px/40px arial,sans-serif !important;
+    }
+
+    /* This rule is read by Galleria to define the gallery height: */
+
+
+    .txt_fld {
+        font-size: 13px !important;
+        height: 50px !important;
+        margin-bottom: 20px;
+    }
+
+    .txt_fld2 {
+        font-size: 13px !important;
+        height: 130px !important;
+        margin-bottom: 20px;
+    }
+
+    #btnSendMessage {
+        background: #0063a2;
+        border: 0;
+        outline: 0;
+        height: 40px;
+        padding: 0 10px;
+        font-size: 15px;
+        font-weight: bold;
+        color: #fff;
+        margin: 0 15px 25px;
+    }
+</style>
+
+<div class="container">
+    <div class="col-md-6" style="border:1px solid #efefef;">
+        <div id="galleria">
+            @if (Model.PhotosUrl != null)
+            {
+                foreach (var item in Model.PhotosUrl)
+                {
+                    <a href=@(item == null ? "/Content/image/No-image-found.jpg" : item)>
+                        <img src=@(item == null ? "/Content/image/No-image-found.jpg" : item)
+                             data-big=@(item == null ? "/Content/image/No-image-found.jpg" : item)
+                             data-description="@Model.Make @Model.Model" onerror="onImgErrorSmall(this)" />
+                    </a>
+
+                    @*<a href=@(item = =null ? "~/Content/image/listing_thumb.jpg"
+                             "/Content/image/No-image-found.jpg" )>
+                            <img src=@(item = =null ? "~/Content/image/listing_thumb.jpg"
+                                 "/Content/image/No-image-found.jpg" )
+                                 data-big=@(item = =null ? "~/Content/image/listing_thumb.jpg"
+                                 "/Content/image/No-image-found.jpg" )
+                                 data-description="@Model.Make @Model.Model" onerror="onImgErrorSmall(this)" />
+                        </a>*@
+
+                }
+            }
+            else
+            {
+                <a href="/Content/image/No-image-found.jpg">
+                    <img src="/Content/image/No-image-found.jpg"
+                         data-big="/Content/image/No-image-found.jpg"
+                         data-description="@Model.Make @Model.Model" />
+                </a>
+
+                @*<a href="~/Content/image/listing_thumb.jpg">
+                        <img src="~/Content/image/listing_thumb.jpg"
+                             data-big="~/Content/image/listing_thumb.jpg"
+                             data-description="@Model.Make @Model.Model" />
+                    </a>*@
+            }
+        </div>
+        <div class="clear"></div>
+        <div class="social_conn">
+            @*<span class="follow_social">Share this property :-</span>*@
+            <span class='st_facebook' displaytext='Facebook'></span>
+            <span class='st_twitter' displaytext='Tweet'></span>
+            <span class='st_pinterest' displaytext='Pinterest'></span>
+            <span class='st_googleplus' displaytext='Google +'></span>
+            <span class='st_instagram' displaytext='Instagram'></span>
+            <span class='st_email' displaytext='Email'></span>
+        </div>
+    </div>
+    <div class="col-md-6 dtls-right_pennal">
+        <h2>@Model.Year @Model.Make @Model.Model</h2>
+        @*<p>@Html.Raw(HttpUtility.HtmlEncode(Model.Description))</p>*@
+        <h2 style="padding:20px 0 0 0;">Quick Glance</h2>
+        <ul>
+            <li><span>Make</span> @Model.Make</li>
+            <li><span>Model</span> @Model.Model</li>
+            <li><span>Mileage</span> @Model.Mileage</li>
+            @if (!string.IsNullOrEmpty(Model.InteriorColor))
+            {
+                <li><span>InteriorColor</span> @Model.InteriorColor</li>
+            }
+            <li><span>ExteriorColor</span> @Model.ExteriorColor</li>
+            <li><span>StockNumber</span> @Model.StockNumber</li>
+            <li><span>Transmission</span> @Model.Transmission</li>
+            <li><span>VIN</span>@Model.Vin</li>
+        </ul>
+    </div>
+
+
+</div>
+
+<div class="container">
+    <div class="pro_dtls-tab">
+
+
+        <ul class="nav1 dtls-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Overview</a></li>
+            @*
+                <li><a data-toggle="tab" href="#menu1">Dealership Information</a></li>*@
+            @if (@Model.IsClassified == true)
+            {
+                <li><a data-toggle="tab" href="#menu6">Selar Information</a></li>
+            }
+            else
+            {
+                <li><a data-toggle="tab" href="#menu2">Dealer Information</a></li>
+            }
+            <li><a data-toggle="tab" href="#menu3">Specifications & Equipments</a></li>
+            <li><a data-toggle="tab" href="#menu4">Get A Quote</a></li>
+            @if (Model.GeoLocation.Coordinates[0] != 0.0 && Model.GeoLocation.Coordinates[1] != 0.0)
+            {
+                <li><a data-toggle="tab" href="#menu5">Geo Location</a></li>
+            }
+            @if (@Model.AutoMarketValue != null)
+            {
+                if (!string.IsNullOrEmpty(Model.AutoMarketValue.vin))
+                {
+                    if (Model.ExtProperties != null)
+                    {
+                        if (Model.ExtProperties.ShowMarketVal != null)
+                        {
+                            if (Model.ExtProperties.ShowMarketVal == true)
+                            {
+                                <li><a data-toggle="tab" href="#menu7">Market Value</a></li>
+                            }
+                            else
+                            {
+                                <li style="display:none"><a data-toggle="tab" href="#menu7">Market Value</a></li>
+                            }
+                        }
+                    }
+                }
+            }
+            @if (@Model.AutoOwnershipCost != null)
+            {
+                if (!string.IsNullOrEmpty(Model.AutoOwnershipCost.vin))
+                {
+                    if (Model.ExtProperties != null)
+                    {
+                        if (Model.ExtProperties.ShowOwnershipCost != null)
+                        {
+                            if (Model.ExtProperties.ShowOwnershipCost == true)
+                            {
+                                <li><a data-toggle="tab" href="#menu8">Ownership Cost</a></li>
+                            }
+                            else
+                            {
+                                <li style="display:none"><a data-toggle="tab" href="#menu8">Ownership Cost</a></li>
+                            }
+                        }
+                    }
+                }
+            }
+
+        </ul>
+
+        <div class="dtlstab-content">
+            <div id="home" class="tab-pane fade in active">
+                <h3>@Model.Make @Model.Model @Model.Trim</h3>
+                <ul>
+                    <li class="feature_pro-list"><span>Year :</span>@Model.Year </li>
+                    <li class="feature_pro-listright"><span>Vin :</span> @Model.Vin</li>
+                    <li class="feature_pro-list"><span>Model :</span> @Model.Model</li>
+                    <li class="feature_pro-listright"><span>Trim :</span> @Model.Trim</li>
+                    <li class="feature_pro-list"><span>Category :</span> @Model.Category</li>
+                    <li class="feature_pro-listright"><span>Style :</span> @Model.VehicleStyle</li>
+                    <li class="feature_pro-list"><span>Size :</span> @Model.VehicleSize</li>
+                    <li class="feature_pro-listright"><span>Mileage :</span> @Model.Mileage</li>
+                    <li class="feature_pro-list"><span>Price :</span>$@Model.Price.ToString("#,##,##0")</li>
+                    <li class="feature_pro-listright"><span>Condition :</span> @Model.Condition</li>
+                    <li class="feature_pro-list"><span>ExteriorColor :</span> @Model.ExteriorColor</li>
+                    <li class="feature_pro-listright"><span>StockNumber :</span> @Model.StockNumber</li>
+                    <li class="feature_pro-list"><span>Transmission :</span> @Model.Transmission</li>
+                    @if (!string.IsNullOrEmpty(Model.InteriorColor))
+                    {
+                        <li class="feature_pro-listright"><span>InteriorColor :</span> @Model.InteriorColor</li>
+                    }
+
+
+
+
+                    @*
+                        <li class="feature_pro-list"><span>StockNumber :</span> @Model.StockNumber</li>
+                        <li class="feature_pro-listright"><span>StockNumber :</span> @Model.StockNumber</li>*@
+                </ul>
+                <div class="clear" style="margin-bottom:30px;"></div>
+                <div id="disqus_thread"></div>
+                <script>
+                    /**
+                    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                    */
+                    /*
+                    var disqus_config = function () {
+                    this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+                    */
+                    (function () { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//autovertical.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+
+                <p class="feature_pro-list">
+                    <span>Dealership Phone&nbsp;:&nbsp; </span>@Model.DealershipPhone
+                </p>
+
+                <p class="feature_pro-listright">
+                    <span> Dealership City&nbsp;:&nbsp; </span> @Model.DealershipCity
+                </p>
+                <p class="feature_pro-list">
+                    <span> Dealership State&nbsp;:&nbsp; </span>@Model.DealershipState
+                </p>
+
+                <p class="feature_pro-listright">
+                    <span> Dealership Zip&nbsp;:&nbsp; </span>@Model.DealershipZip
+                </p>
+
+
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                <p class="feature_pro-list"><span>Dealer Name&nbsp;: </span><a class="chooseByDealer" data-dealer="@Model.DealerName">@Model.DealerName</a></p>
+                <p class="feature_pro-listright"> <span>Dealer Address&nbsp;:</span> @Model.DealerAddress</p>
+                <p class="feature_pro-list"> <span>Dealer City&nbsp;: </span> @Model.DealerCity</p>
+                <p class="feature_pro-listright"> <span>Dealer State&nbsp;:  </span> @Model.DealerState</p>
+                <p class="feature_pro-list"> <span>Dealer Zip&nbsp;:  </span> @Model.DealerZip</p>
+                <p class="feature_pro-listright"> <span>Dealer Phone&nbsp;:  </span> @Model.DealerPhone</p>
+                @if (!string.IsNullOrEmpty(Model.DealerEmail))
+                {
+                    <p class="feature_pro-list"> <span>Dealer Email&nbsp;:  </span> @Model.DealerEmail</p>
+                }
+                @if (!string.IsNullOrEmpty(Model.LeadEmailAddress))
+                {
+                    <p class="feature_pro-listright"> <span>LeadEmail Address&nbsp;:  </span> @Model.LeadEmailAddress</p>
+                }
+                @if (!string.IsNullOrEmpty(Model.CCEmailAddress))
+                {
+                    <p class="feature_pro-list"><span>CCEmail Address&nbsp;: </span> @Model.CCEmailAddress</p>
+                }
+                @if (!string.IsNullOrEmpty(Model.LeadType))
+                {
+                    <p class="feature_pro-listright"><span>Lead Type&nbsp;: </span> @Model.LeadType</p>
+                }
+
+            </div>
+            <div id="menu3" class="tab-pane fade">
+                <p style="word-break: break-all">
+                    <h3 style="padding-left:20px; color:black;">Specifications</h3>
+                    <br />
+                    <ul class="list_details">
+                        @{
+                            var des = Model.Description;
+
+                            if (!string.IsNullOrEmpty(des))
+                            {
+                                if (des.Contains(';') & des.Contains(':'))
+                                {
+                                    string[] arrDesc = des.Split(';');
+                                    foreach (string item in arrDesc)
+                                    {
+
+                                        string[] arrSentenece = item.Split(':');
+
+                                        var part1 = arrSentenece[0];
+                                        var part2 = arrSentenece[1];
+
+                                        if (part1.ToLower() != "details")
+                                        {
+                                            var temp1 = part1[0].ToString().ToUpper() + part1.Substring(1);
+                                            var temp2 = part2[0].ToString().ToUpper() + part2.Substring(1);
+
+                                            var temp = temp1 + " : " + temp2;
+
+                                            <li>@temp</li>
+                                        }
+
+
+                                    }
+                                }
+                                else
+                                {
+                                    var temp = des;
+                                    <li>@temp</li>
+                                }
+
+                            }
+                            else
+                            {
+                                var temp = "Classified car, private party no description available.";
+                                <li>@temp</li>
+                            }
+
+
+                        }
+                        @*@Html.Raw(HttpUtility.UrlDecode(Model.Description))*@
+                    </ul>
+
+                    <div class="clear"></div>
+                </p>
+                @*<p style="border-top-style:solid;border-top-width:thin;border-top-color:lightgray">
+                *@
+                <br />
+                <h3 style="padding-left:20px; color:black;">Equipments</h3>
+                <br />
+                <ul class="list_details">
+                    @{
+                        var descrptn = Model.Description;
+
+                        if (!string.IsNullOrEmpty(descrptn))
+                        {
+                            if (descrptn.Contains(';') & descrptn.Contains(':'))
+                            {
+                                string[] arrDesc1 = descrptn.Split(';');
+
+                                foreach (string item1 in arrDesc1)
+                                {
+
+                                    string[] arrSentenece1 = item1.Split(':');
+
+                                    var part1 = arrSentenece1[0];
+                                    var part2 = arrSentenece1[1];
+
+                                    if (part1.ToLower() == "details")
+                                    {
+                                        string[] arrTemp = part2.Split(',');
+
+                                        foreach (string item2 in arrTemp)
+                                        {
+                                            var temp = item2[0].ToString().ToUpper() + item2.Substring(1);
+                                            <li>@temp</li>
+                                        }
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                var temp = descrptn;
+                                <li>@temp</li>
+                            }
+                        }
+                        else
+                        {
+                            var temp = "Classified car, private party no description available.";
+                            <li>@temp</li>
+                        }
+                    }
+                </ul>
+
+                <div class="clear"></div>
+                @*
+                    </p>*@
+            </div>
+            <div id="menu4" class="tab-pane fade">
+                <div>
+                    <h3>Get A Quote</h3>
+                    <br />
+                    <div class="col-md-6">
+                        <div>
+                            <label for="firstName">First name*</label>
+                            <div style="text-align:left;font-size:14px; line-height:20px; float:right;">
+                                <label for="myaluetxtfName" style="color:red; font-weight:normal; padding:0;"></label>
+                            </div>
+                            <div>
+                                <input id="txtfName" type="text" name="txtfName" value="" placeholder="Enter your First Name" class="txt_fld">
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <label for="lastName">Last name*</label>
+                            <div style="text-align:left;font-size:14px; line-height:20px; float:right;">
+                                <label for="myaluetxtlName" style="color:red; font-weight:normal; padding:0;"></label>
+                            </div>
+                            <div>
+                                <input id="txtlName" type="text" name="txtlName" value="" placeholder="Enter Your Last Name" class="txt_fld">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email">Email*</label>
+                            <div style="text-align:left;font-size:14px; line-height:20px; float:right;">
+                                <label for="myaluetxtEmail" style="color:red; font-weight:normal; padding:0;"></label>
+                            </div>
+                            <div>
+                                <input id="txtEmail" type="email" name="txtEmail" value="" placeholder="Enter Your Email Address" class="txt_fld">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div>
+                            <label for="phone">Phone*</label>
+                            <div style="text-align:left;font-size:14px; line-height:20px; float:right;">
+                                <label for="myaluetxtPhone" style="color:red; font-weight:normal; padding:0;"></label>
+                            </div>
+                            <div>
+                                <input id="txtPhone" type="tel" name="txtPhone" value="" placeholder="Enter your Phone Number" class="txt_fld">
+                            </div>
+                        </div>
+
+                        @*<div>
+                                <label for="zip" style="float:left;">ZIP*</label>
+                                <div style="text-align:left;font-size:14px; line-height:20px; float:right;">
+                                    <label for="myaluetxtZip" style="color:red; font-weight:normal; padding:0;"></label>
+                                </div>
+                                <div>
+                                    <input id="txtZip" type="tel" name="txtZip" maxlength="5" value="" placeholder="Enter Your 5-digit ZIP" class="txt_fld">
+                                </div>
+                            </div>*@
+
+                        <div>
+                            <label for="comments">Notes*</label>
+                            <div style="text-align:left;font-size:14px; line-height:20px; float:right;">
+                                <label for="myaluetxtComments" style="color:red; font-weight:normal; padding:0;"></label>
+                            </div>
+                            <div>
+                                <textarea id="txtComments" name="comments" placeholder="Enter Your Comments" class="txt_fld2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                    <div style="float:left;"><input type="button" value="Send Request" id="btnSendMessage" /></div>
+                    @*<div style="color:red; font-size:13px; font-weight:bold; float:left; line-height:40px;">* Required Field</div>*@
+
+                    <div style="text-align:left;font-size:14px; line-height:20px;">
+                        <label for="myalueConfirmation" style="vertical-align: middle;color:red;"></label>
+                    </div>
+                    <input type="hidden" id="hddnDealerMail" value="@Model.DealerEmail" />
+                    <div class="clearfix"></div>
+                    @*<div class="disclaimer">
+                            By clicking this button, you are agreeing to have a car dealer contact you for the purpose of responding to your car price quote request. You understand that the dealer's call may be using an autodialer, and that a portion of the call may be pre-recorded.
+                        </div>
+                        <br>
+                        <div class="privacy">We value your privacy. <a href="/about/privacy/" target="_blank" onclick="">Cars.com Privacy Statement</a></div>*@
+                </div>
+            </div>
+
+            <div id="menu5" class="tab-pane fade">
+                <div @*style="border: 1px solid #dddddd;" *@>
+                    <div id="map_dealer">
+                        @*<img src="/Content/image/No-image-found.jpg" />*@
+                    </div>
+                    <div class="clear"></div>
+                    <div class="show_map-street">
+                        <ul>
+                            <li><a href="#" onclick="ShowMapView('map_dealer', '@Model.GeoLocation.Coordinates[1]', '@Model.GeoLocation.Coordinates[0]', 'road'); return false;">Map</a></li>
+                            <li><a href="#" onclick="ShowMapView('map_dealer', '@Model.GeoLocation.Coordinates[1]', '@Model.GeoLocation.Coordinates[0]', 'birdeye'); return false;">Street</a></li>
+                            @*
+                                <li><a href="#" onclick="ShowMapView('galleria', '@Model.GeoPoint.Coordinates[1]', '@Model.GeoPoint.Coordinates[0]','birdeye'); return false;">Street</a></li>*@
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+            @* This is for classified feed *@
+            <div id="menu6" class="tab-pane fade">
+                <p class="feature_pro-list"><span>Name&nbsp;: </span>@Model.DealerName</p>
+                <p class="feature_pro-listright"> <span>Address&nbsp;:</span> @Model.DealerAddress</p>
+                <p class="feature_pro-list"> <span>City&nbsp;: </span> @Model.DealerCity</p>
+                <p class="feature_pro-listright"> <span>State&nbsp;:  </span> @Model.DealerState</p>
+                <p class="feature_pro-list"> <span>Zip&nbsp;:  </span> @Model.DealerZip</p>
+                <p class="feature_pro-listright"> <span>Phone&nbsp;:  </span> @Model.DealerPhone</p>
+                @if (!string.IsNullOrEmpty(Model.DealerEmail))
+                {
+                    <p class="feature_pro-list"> <span>Email&nbsp;:  </span> @Model.DealerEmail</p>
+                }
+                @if (!string.IsNullOrEmpty(Model.LeadEmailAddress))
+                {
+                    <p class="feature_pro-listright"> <span>LeadEmail Address&nbsp;:  </span> @Model.LeadEmailAddress</p>
+                }
+                @if (!string.IsNullOrEmpty(Model.CCEmailAddress))
+                {
+                    <p class="feature_pro-list"><span>CCEmail Address&nbsp;: </span> @Model.CCEmailAddress</p>
+                }
+                @if (!string.IsNullOrEmpty(Model.LeadType))
+                {
+                    <p class="feature_pro-listright"><span>Lead Type&nbsp;: </span> @Model.LeadType</p>
+                }
+
+
+            </div>
+            @*<div id="menu7" class="tab-pane fade">
+                    <div class="demo_mv_wrapper">
+
+                    </div>
+                </div>*@
+            <div id="menu7" class="tab-pane fade">
+                @*@if (string.IsNullOrEmpty(Model.AutoMarketValue.vin))*@
+                @if (Model.AutoMarketValue != null)
+                {
+                    if (!string.IsNullOrEmpty(Model.AutoMarketValue.vin))
+                    {
+                        <p class="feature_pro-list">
+                            <span>Vin&nbsp;:&nbsp; </span>@Model.AutoMarketValue.vin
+                        </p>
+
+                        <p class="feature_pro-listright">
+                            <span> Vehicle&nbsp;:&nbsp; </span> @Model.AutoMarketValue.vehicle
+                        </p>
+                        <p class="feature_pro-list">
+                            <span> Count&nbsp;:&nbsp; </span>@Model.AutoMarketValue.count
+                        </p>
+
+                        <p class="feature_pro-listright">
+                            <span> Mean&nbsp;:&nbsp; </span>@Model.AutoMarketValue.mean
+                        </p>
+                        <p class="feature_pro-list">
+                            <span> Stdev&nbsp;:&nbsp; </span>@Model.AutoMarketValue.stdev
+                        </p>
+
+                        <p class="feature_pro-listright">
+                            <span> Certainty&nbsp;:&nbsp; </span>@Model.AutoMarketValue.certainty
+                        </p>
+                        <p class="feature_pro-list">
+                            <span> Period&nbsp;:&nbsp; </span>From @Model.AutoMarketValue.period[0] To @Model.AutoMarketValue.period[1]
+                        </p>
+
+                        <p class="feature_pro-listright"> <span> Prices&nbsp;:&nbsp;</span>Above: $@Model.AutoMarketValue.prices.above, Below: $@Model.AutoMarketValue.prices.below, Average: $@Model.AutoMarketValue.prices.average</p>
+
+                    }
+
+                }
+            </div>
+            <div class="clear"></div>
+            <div id="menu8" class="tab-pane fade">
+                @*@if (string.IsNullOrEmpty(@Model.AutoOwnershipCost.vin))*@
+                @if (Model.AutoOwnershipCost != null)
+                {
+                    if (!string.IsNullOrEmpty(@Model.AutoOwnershipCost.vin))
+                    {
+                        <p class="feature_pro-list">
+                            <span class="own_cost">Vin&nbsp;:&nbsp; </span>@Model.AutoOwnershipCost.vin
+                        </p>
+
+                        <p class="feature_pro-listright">
+                            <span class="own_cost"> Mileage Start&nbsp;:&nbsp; </span> @Model.AutoOwnershipCost.mileage_start
+                        </p>
+                        <p class="feature_pro-list">
+                            <span class="own_cost">Mileage Year&nbsp;:&nbsp; </span>@Model.AutoOwnershipCost.mileage_year
+                        </p>
+                        if (!string.IsNullOrEmpty(Model.AutoOwnershipCost.vehicle))
+                        {
+                            <p class="feature_pro-listright">
+                                <span class="own_cost">Vehicle&nbsp;:&nbsp; </span> @Model.AutoOwnershipCost.vehicle
+                            </p>
+                        }
+                        <p class="feature_pro-list">
+                            <span class="own_cost">
+                                Depreciation Cost&nbsp;:&nbsp;
+                            </span>
+                            @if (Model.AutoOwnershipCost.depreciation_cost != null)
+                            {
+                                foreach (int item in @Model.AutoOwnershipCost.depreciation_cost)
+                                {
+                                    @item@((item != Model.AutoOwnershipCost.depreciation_cost.Last()) ? ",   $ " : "")
+
+                                }
+                            }
+
+
+                        </p>
+                        <p class="feature_pro-listright">
+                            <span class="own_cost">
+                                Insurance Cost&nbsp;:&nbsp;
+                            </span>
+                            @if (Model.AutoOwnershipCost.insurance_cost != null)
+                            {
+                                foreach (int item in @Model.AutoOwnershipCost.insurance_cost)
+                                {
+                                    @item@((item != Model.AutoOwnershipCost.insurance_cost.Last()) ? ",  $ " : "")
+
+                                }
+                            }
+                        </p>
+                        <p class="feature_pro-list">
+                            <span class="own_cost">
+                                Fuel Cost&nbsp;:&nbsp;
+                            </span>
+                            @if (Model.AutoOwnershipCost.fuel_cost != null)
+                            {
+                                foreach (int item in @Model.AutoOwnershipCost.fuel_cost)
+                                {
+                                    @item@((item != Model.AutoOwnershipCost.fuel_cost.Last()) ? ",  $ " : "")
+
+                                }
+                            }
+                        </p>
+                        <p class="feature_pro-listright">
+                            <span class="own_cost">
+                                Maintenance Cost&nbsp;:&nbsp;
+                            </span>
+                            @if (Model.AutoOwnershipCost.maintenance_cost != null)
+                            {
+                                foreach (int item in @Model.AutoOwnershipCost.maintenance_cost)
+                                {
+                                    @item@((item != Model.AutoOwnershipCost.maintenance_cost.Last()) ? ",  $ " : "")
+
+                                }
+                            }
+                        </p>
+                        <p class="feature_pro-list">
+                            <span class="own_cost">
+                                Repairs Cost&nbsp;:&nbsp;
+                            </span>
+                            @if (Model.AutoOwnershipCost.repairs_cost != null)
+                            {
+                                foreach (int item in @Model.AutoOwnershipCost.repairs_cost)
+                                {
+                                    @item@((item != Model.AutoOwnershipCost.repairs_cost.Last()) ? ",  $ " : "")
+
+                                }
+                            }
+                        </p>
+                        <p class="feature_pro-listright">
+                            <span class="own_cost">
+                                Fees Cost&nbsp;:&nbsp;
+                            </span>
+                            @if (Model.AutoOwnershipCost.fees_cost != null)
+                            {
+                                foreach (int item in @Model.AutoOwnershipCost.fees_cost)
+                                {
+                                    @item@((item != Model.AutoOwnershipCost.fees_cost.Last()) ? ",  $ " : "")
+
+                                }
+                            }
+                        </p>
+                        <p class="feature_pro-list">
+                            <span class="own_cost">
+                                Total Cost&nbsp;:&nbsp;
+                            </span>
+                            @if (Model.AutoOwnershipCost.total_cost != null)
+                            {
+                                foreach (int item in @Model.AutoOwnershipCost.total_cost)
+                                {
+                                    @item@((item != Model.AutoOwnershipCost.total_cost.Last()) ? ",  $ " : "")
+
+                                }
+                            }
+                        </p>
+                        <p class="feature_pro-listright">
+
+                            <span class="own_cost">Total Cost Sum&nbsp;:&nbsp; </span>
+                            $  @Model.AutoOwnershipCost.total_cost_sum
+
+                        </p>
+
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+    @*@Html.Raw(Model.ChatScript)*@
+</div>
+<script src="~/Content/js/galleria-1.4.2.min.js"></script>
+
+<script type="text/javascript">
+    $('.chooseByDealer').click(function (e) {
+        debugger;
+        var dealerName = $(this).data("dealer");
+        //var location = $('#Location').val();
+        //var zipCode = $('#ZipCode').val();
+        var location = "";
+        var zipCode = "";
+        var Name = "";
+        var url = '@Url.Action("CarListing", "Home")' + '?DealerName=' + dealerName + '&Location=' + location + '&ZipCode=' + zipCode;
+        window.location.href = url;
+    });
+    $(function () {
+        $('#btnSendMessage').click(function (e) {
+            debugger;
+
+            var faname = $('#txtfName').val();
+            var lname = $('#txtlName').val();
+            var name = faname + ' ' + lname;
+            var email = $('#txtEmail').val();
+            var phone = $('#txtPhone').val();
+            var zip = $('#txtZip').val();
+            var ToMail = $('#hddnDealerMail').val();
+            //var subject = $('#agent_contact_subject').val();
+            var subject = 'Check Availabilty';
+            var message = $('#txtComments').val();
+            //var mlsNumber = GetParameterValues("mlsNumber");
+            //var brokerMail = $('#brokerEmail').data("brokermail");
+            //var command = GetParameterValues("Command");
+            //var subCommand = GetParameterValues("SubCommand");
+            var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var numbers = /^[0-9]+$/;
+            var zipformat = /^\d{5}$/;
+            var validResult = true;
+
+            if (faname) {
+                validResult = true;
+                jQuery("label[for='myaluetxtfName']").html("");
+            } else {
+                validResult = false;
+                jQuery("label[for='myaluetxtfName']").html("Please Enter First Name");
+                $('#txtfName').focus();
+                return;
+            }
+
+            if (lname) {
+                validResult = true;
+                jQuery("label[for='myaluetxtlName']").html("");
+            } else {
+                validResult = false;
+                jQuery("label[for='myaluetxtlName']").html("Please Enter Last Name");
+                $('#txtlName').focus();
+                return;
+            }
+
+            if (mailformat.test(email)) {
+                validResult = true;
+                jQuery("label[for='myaluetxtEmail']").html("");
+            } else {
+                validResult = false;
+                jQuery("label[for='myaluetxtEmail']").html("Please Enter Valid Email.");
+                $('#txtEmail').focus();
+                return;
+            }
+
+            if (numbers.test(phone)) {
+                validResult = true;
+                jQuery("label[for='myaluetxtPhone']").html("");
+            } else {
+                validResult = false;
+                jQuery("label[for='myaluetxtPhone']").html("Please Enter Valid Phone No.");
+                $('#txtPhone').focus();
+                return;
+            }
+
+            //if (zipformat.test(zip)) {
+            //    validResult = true;
+            //    jQuery("label[for='myaluetxtZip']").html("");
+            //} else {
+            //    validResult = false;
+            //    jQuery("label[for='myaluetxtZip']").html("Please Enter Valid Zip");
+            //    $('#txtZip').focus();
+            //    return;
+            //}
+
+            if (message) {
+                validResult = true;
+                jQuery("label[for='myaluetxtComments']").html("");
+            } else {
+                validResult = false;
+                jQuery("label[for='myaluetxtComments']").html("Please Enter Your Message.");
+                $('#txtComments').focus();
+                return;
+            }
+
+            //if (subject) {
+            //    validResult = true;
+            //    jQuery("label[for='myalue']").html("");
+            //} else {
+            //    validResult = false;
+            //    jQuery("label[for='myalue']").html("Please enter subject.");
+            //    $('#agent_contact_subject').focus();
+            //    return;
+            //}
+
+            debugger;
+            if (validResult == true) {
+                var url = '@Url.Action("SendMail", "Home")' + '?Name=' + name + '&Email=' + email + '&ToMail=' + ToMail + '&Phone=' + phone + '&Zip=' + zip + '&Message=' + message + '&Subject= SD Cars Check Availability!';
+                $.ajax({
+                    url: url, success: function (result) {
+                        if (result) {
+                            jQuery("label[for='myalueConfirmation']").html("Your request is confirmed.");
+                        } else {
+                            jQuery("label[for='myalueConfirmation']").html("Please try again!");
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    function onImgErrorSmall(source) {
+        source.src = "/Content/image/thumb.jpg";
+        source.onerror = "";
+        return true;
+    }
+    // Load the classic theme
+    Galleria.loadTheme('/Content/js/galleria.classic.min.js');
+    Galleria.configure({
+        lightbox: true
+    });    // Initialize Galleria
+    Galleria.run('#galleria');
+
+    Galleria.ready(function () {
+        this.bind('image', function (e) {
+            e.imageTarget.alt = e.galleriaData.description;
+        });
+    });
+
+
+
+</script>
+
+<script type="text/javascript">var switchTo5x = true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({ publisher: "625d776f-12b4-450c-a148-6c15c382c61e", doNotHash: false, doNotCopy: false, hashAddressBar: false });</script>
+<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+<script src="~/Content/js/galleria-property-details.js"></script>
+<script src="http://widgets.vinaudit.com/marketvalue.js"></script>
+<script src="http://www.vinaudit.com/widgets/libs/chart.js-1.0.2-h_min.js"></script>
+
+<script>
+
+    $(function () {
+        debugger;
+        @*var latnull='@Model.GeoLocation.Coordinates[0]';
+        if (latnull != -999) {*@
+        ShowMapView('map_dealer', '@Model.GeoLocation.Coordinates[1]', '@Model.GeoLocation.Coordinates[0]', 'road');
+        //}
+    });
+</script>
+<script type="text/javascript">
+
+    $(function () {
+        loadWidget();
+    });
+
+    function loadWidget() {
+        VinAudit.MarketValueWidget.render({
+            vin: '1FADP3K2XEL277439', //document.getElementById('vin').value,
+            key: 'VA_DEMO_KEY'
+        });
+    }
+
+</script>

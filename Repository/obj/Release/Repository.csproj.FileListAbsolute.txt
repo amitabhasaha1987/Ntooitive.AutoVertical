@@ -1,0 +1,11 @@
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Repository\bin\Release\Repository.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Repository\bin\Release\Repository.pdb
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Repository\bin\Release\AutoMapper.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Repository\bin\Release\MongoDB.Bson.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Repository\bin\Release\Newtonsoft.Json.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Repository\bin\Release\AutoMapper.xml
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Repository\bin\Release\MongoDB.Bson.xml
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Repository\bin\Release\Newtonsoft.Json.xml
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Repository\obj\Release\Repository.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Repository\obj\Release\Repository.pdb
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\Repository\obj\Release\Repository.csprojResolveAssemblyReference.cache

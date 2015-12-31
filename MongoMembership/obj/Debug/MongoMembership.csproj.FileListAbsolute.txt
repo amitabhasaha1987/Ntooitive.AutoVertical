@@ -1,0 +1,10 @@
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\MongoMembership\bin\Debug\MongoMembership.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\MongoMembership\bin\Debug\MongoMembership.pdb
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\MongoMembership\bin\Debug\MongoDB.Bson.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\MongoMembership\bin\Debug\MongoDB.Driver.Core.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\MongoMembership\bin\Debug\MongoDB.Driver.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\MongoMembership\bin\Debug\MongoDB.Bson.xml
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\MongoMembership\bin\Debug\MongoDB.Driver.xml
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\MongoMembership\obj\Debug\MongoMembership.csprojResolveAssemblyReference.cache
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\MongoMembership\obj\Debug\MongoMembership.dll
+C:\Users\Amitabha\Source\Repos\AutoVerticals\Ntooitive.AutoVertical\MongoMembership\obj\Debug\MongoMembership.pdb

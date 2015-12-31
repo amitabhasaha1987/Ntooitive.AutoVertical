@@ -1,0 +1,110 @@
+﻿
+@{
+    Layout = null;
+}
+@{
+    Layout = null;
+
+}
+
+
+@model List< Repository.Models.CarListing>
+<link href="/Content/Widget/style.css" rel="stylesheet" />
+
+@*<link href="~/Content/css/bootstrap.css" rel="stylesheet" />*@
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="/Content/Widget/jquery.carouFredSel-6.2.1-packed.js"></script>
+<script src="/Content/Widget/extras/loadcarofred.js"></script>
+<script type="text/javascript">
+        var url_Start = '@String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority)';
+
+        jQuery(function () {
+            debugger;
+            //css
+            //jQuery('head').append("<link href='" + url_Start + "/Content/Widget/style.css' rel='stylesheet' />");
+            //jQuery('head').append("<script src='" + url_Start + "/Content/Widget/jquery.carouFredSel-6.2.1-packed.js'><\/script>");
+            //jQuery('head').append("<script src='" + url_Start + "/Content/Widget/extras/loadcarofred.js'><\/script>");
+
+
+            //images
+            $('#ntooitive-prev-car').attr('src', url_Start + '/Content/Widget/images/prev.png');
+            $('#ntooitive-next-car').attr('src', url_Start + '/Content/Widget/images/next.png');
+        });
+</script>
+
+<div class="ntooitive-main_area  col-lg-4 col-sm-4">
+    <h2>Featured Autos</h2>
+    <div class="ntooitive-main_content" id="ntooitive-slider-car">
+        @{
+            double carCount = Model.Count;
+            int carperpage = 2;
+            var totalPage = Math.Ceiling(carCount / carperpage);
+            Console.WriteLine(totalPage);
+            var noimage_url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Content/image/No-image-found.jpg";
+        }
+
+        @if (carCount > 0)
+        {
+
+
+            for (int i = 0; i < totalPage; i++)
+            {
+                <div class="ntooitive-slide">
+                    @*@for (int j = 0; j < agentperpage; j++)
+                        {*@
+                    <ul>
+                        @for (int k = 0; k < carperpage; k++)
+                        {
+                            var currentcar = i * carperpage + k;
+                            Console.WriteLine(currentcar);
+                            if (currentcar < carCount)
+                            {
+                                <li>
+                                    @{
+                                var url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Home/CarDetails?Id=" + @Model.ElementAt(currentcar).Id;
+
+                                    }
+                                    <div class="ntooitive-property_img">
+                                        <img src="@(Model.ElementAt(currentcar).PhotosUrl != null ? Model.ElementAt(currentcar).PhotosUrl[0] : noimage_url)" alt="" style="height:143px!important;"
+                                             onerror="this.onerror=null;this.src='@noimage_url';" />
+                                    </div>
+
+
+                                    <div class="ntooitive-property_details">
+                                        <h3>@Model.ElementAt(currentcar).Make @Model.ElementAt(currentcar).Model  @Model.ElementAt(currentcar).Year</h3>
+                                        <span>Milage:  @Model.ElementAt(currentcar).Mileage</span>
+                                        <h4>Price: $@Model.ElementAt(currentcar).Price </h4>
+                                        <h5>@Model.ElementAt(currentcar).DealerName </h5>
+                                        @*<p></p>
+                                            <p></p>*@
+                                        <a href="@url" class="ntooitive-view_button" target="_blank">View Details</a>
+
+                                        <div>@*<img src="@Model.ElementAt(currentcar).ProfileImage" alt="" />*@</div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                    @*}*@
+
+                </div>
+            }
+        }
+        else
+        {
+            <div class="not_found"> No data found</div>
+
+        }
+
+
+
+
+
+
+    </div>
+
+    <a href="#" id="ntooitive-prev"><img id="ntooitive-prev-car" alt="" /></a>
+    <a href="#" id="ntooitive-next"><img id="ntooitive-next-car" alt="" /></a>
+</div>

@@ -1,0 +1,116 @@
+﻿@{
+    Layout = null;
+
+}
+
+
+@model List<Repository.Models.Admin.Dealer.User>
+
+    <head>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript">
+            var url_Start = '@String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority)';
+            debugger;
+            var jQuery = $;
+            jQuery(function () {
+                debugger;
+                //css
+                jQuery('head').append("<link href='" + url_Start + "/Content/Widget/style.css' rel='stylesheet' />");
+                jQuery('head').append("<script src='" + url_Start + "/Content/Widget/jquery.carouFredSel-6.2.1-packed.js'><\/script>");
+                jQuery('head').append("<script src='" + url_Start + "/Content/Widget/extras/loadcarofred.js'><\/script>");
+
+
+                //images
+                jQuery('#ntooitive-prev-agent-horizon').attr('src', url_Start + '/Content/Widget/images/prev.png');
+                jQuery('#ntooitive-next-agent-horizon').attr('src', url_Start + '/Content/Widget/images/next.png');
+            });
+        </script>
+        <style>
+            ntooitive-main_content ul li {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14px;
+                color: #000;
+                padding: 15px;
+                border-bottom: none;
+            }
+
+            .ntooitive-main_area {
+                width: 400px;
+                margin: 0 auto;
+                border: 1px solid #dddddd;
+                position: relative;
+            }
+
+            .ntooitive-property_details h1 {
+                font-size: 12px;
+                font-weight: bold;
+                width: 150px;
+                min-height: 30px;
+            }
+
+            .ntooitive-property_details p {
+                font-size: 12px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="ntooitive-main_area">
+            <h2>FEATURED DEALERS</h2>
+            <div class="ntooitive-main_content" id="ntooitive-slider-agent-horizon">
+                @{
+                    double agentCount = Model.Count;
+                    int agentperpage = 2;
+                    var totalPage = Math.Ceiling(agentCount / agentperpage);
+                    Console.WriteLine(totalPage);
+                }
+
+                @if (agentCount>0)
+                {
+                    for (int i = 0; i < totalPage; i++)
+                {
+                    <div class="ntooitive-slide">
+                        <ul>
+                            @for (int k = 0; k < agentperpage; k++)
+                            {
+                                var currentUser = i * agentperpage + k;
+                                Console.WriteLine(currentUser);
+                                if (currentUser < agentCount)
+                                {
+                                    <li style="display: inline-block; width: 160px; vertical-align: top; overflow: hidden; border-bottom:none;">
+                                        @{
+                                    var noimage_url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Content/image/No-image-found.jpg";
+                                    var url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Home/CarListing?DealerName=" + @Model.ElementAt(currentUser).DealerName;
+                                        }
+                                        <div class="ntooitive-property_img"><img style="height:100px;width:150px;" src="@(Model.ElementAt(currentUser).ProfileImage != null ? Model.ElementAt(currentUser).ProfileImage : noimage_url )" alt=""
+     onerror="this.onerror=null;this.src='@noimage_url';" /></div>
+                                        <div class="ntooitive-property_details">
+                                            <p>@Model.ElementAt(currentUser).DealerName</p>
+                                            <p style="font-size:10px;font-weight:bold;">@Model.ElementAt(currentUser).DealerPhone</p>
+                                            <p style="font-size:10px;font-weight:bold;">@Model.ElementAt(currentUser).DealerEmail</p>
+
+                                            <a href="@url" class="ntooitive-view_button" target="_blank">View Details</a>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                }
+                }
+                else
+                {
+                    <div class="not_found"> No data found</div>
+                }
+                
+
+            </div>
+
+            <a href="#" id="ntooitive-prev"><img id="ntooitive-prev-agent-horizon" alt="" /></a>
+            <a href="#" id="ntooitive-next"><img id="ntooitive-next-agent-horizon" alt="" /></a>
+        </div>
+
+    </body>
+

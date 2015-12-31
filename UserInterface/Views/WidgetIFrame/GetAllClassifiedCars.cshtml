@@ -1,0 +1,75 @@
+﻿
+@{
+    Layout = null;
+}
+
+@model List< Repository.Models.CarListing>
+<link href="/Content/Widget/style.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    var url_Start = '@String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority)';
+
+    jQuery(function () {
+        debugger;
+        //css
+        //jQuery('head').append("<link href='" + url_Start + "/Content/Widget/style.css' rel='stylesheet' />");
+        
+    });
+</script>
+
+<div class="ntooitive-main_area">
+    <h2>RECENTLY LISTED</h2>
+    <div class="" id="ntooitive-slider-classifiedCar">
+        @{
+            double carCount = Model.Count;
+        }
+
+        @if (carCount > 0)
+        {
+            <div style="padding-bottom:15px;">
+
+                @foreach (var item in Model)
+                {
+                    var url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Home/CarDetails?Id=" + item.Id;
+
+                    <div class="classified_cls">
+                        @if (!string.IsNullOrEmpty(item.DealerCity))
+                        {
+                            <span>@item.DealerCity @(string.IsNullOrEmpty(item.DealerPhone) == false ? item.DealerPhone : "")</span>
+                        }
+
+                        <a href="@url" target="_blank">
+                            @item.Make - @item.Year - @item.Model - $@item.Price.ToString("#,##,##0")
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+                }
+
+            </div>
+        }
+        else
+        {
+            <div class="not_found"> No data found</div>
+        }
+
+    </div>
+
+</div>
+
+<style>
+    .classified_cls {
+        padding: 15px 15px 0;
+    }
+
+        .classified_cls span {
+            font-size: 13px;
+            color: black; /*#FF8439*/
+            display: block;
+        }
+
+        .classified_cls a {
+            font-size: 13px;
+            color: #ed7028; /*#*/
+            display: block;
+        }
+</style>

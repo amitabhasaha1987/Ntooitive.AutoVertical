@@ -1,0 +1,601 @@
+﻿@model Repository.Models.Admin.Dealer.User
+
+<section class="content">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Manage dealer here</h3>
+            <p style="float:right;margin-right:30px;"> Dealer Name : @Model.DealerName</p>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+
+        </div><!-- /.box-header -->
+
+        <div class="box-body">
+
+            @*@if (!string.IsNullOrEmpty(Model.DealerId))
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group pull-right">
+                                <a class="btn btn-primary" href="javascript:EditUser('@Model.DealerId');">Edit</a>
+
+                                <input type="button" class="btn btn-primary btn-block " value="Update" onclick="EditAuto(this)" data-loading-text="Please wait..." />
+
+
+                            </div>
+                        </div>
+                    </div>
+                }*@
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="deletealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Dealer De-Activated Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="activealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Dealer Activated Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="mailActivealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Mail Send Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="deletefailurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>
+                    <div id="featuredActivealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Dealer updated as featured.</h4>
+                        <span></span>
+                    </div>
+                    <div id="featuredDeActivealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Dealer is not featured.</h4>
+                        <span></span>
+                    </div>
+                    <div id="featuredfailurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>                 
+                </div>
+                <div class="col-md-10">
+                    <label class="pull-left">Send Activation Mail </label>
+                </div>
+                <div class="col-md-2">
+                    @if (Model.IsEmailSend)
+                    {
+                        <input id="btnmail" data-uniqueid='@Model.DealerId' type="button" class="btn btn-block btn-primary pull-right" value="Re-Send" />
+                        @*<a data-toggle="tooltip" data-placement="top" title="Click here to re-send activation mail." id="btnmail" class="btn btn-block btn-primary pull-right" href="javascript:SendActivationMail('@Model.ParticipantId',this);">ReSend</a>*@
+                    }
+                    else
+                    {
+                        <input id="btnmail" data-uniqueid='@Model.DealerId' type="button" class="btn btn-block btn-primary pull-right" value="Send" />
+                        @*<a data-toggle="tooltip" data-placement="top" title="Click here to send activation mail." id="btnmail" class="btn btn-block btn-primary pull-right" href="javascript:SendActivationMail('@Model.ParticipantId',this);">Send</a>*@
+                    }
+                </div>
+
+            </div><!-- /.col -->
+
+            <div class="row top-buffer">
+                <div class="col-md-10">
+                    <label class="pull-left">Change Dealer Status</label>
+                </div>
+                <div class="col-md-2">
+                    @if (Model.IsActive)
+                    {
+                        <input id="btnactive_" data-uniqueid='@Model.DealerId' type="button" class="btn btn-block btn-primary pull-right" value="Active" />
+                    }
+                    else
+                    {
+                        <input id="btnactive_" data-uniqueid='@Model.DealerId' type="button" class="btn btn-block btn-primary pull-right" value="De-Active" />
+                    }
+                </div>
+
+            </div><!-- /.col -->
+
+            <div class="row top-buffer">
+                <div class="col-md-10">
+                    <label class="pull-left">Edit Dealer</label>
+                </div>
+                <div class="col-md-2">
+
+                    <input id="btndealer_" type="button" class="btn btn-block btn-primary pull-right" onclick="EditUser('@Model.DealerId')" value="Edit" />
+
+                </div>
+
+            </div><!-- /.col -->
+
+            <div class="row top-buffer">
+                <div class="col-md-10">
+                    <label class="pull-left">Featured Dealer</label>
+                </div>
+                <div class="col-md-2">
+                    @if (Model.IsFeatured)
+                    {
+                        <input id="chkIsFeatured" data-uniqueid="@Model.DealerId" type="checkbox" checked="checked" value="Active" />
+                    }
+                    else
+                    {
+                        <input id="chkIsFeatured" data-uniqueid="@Model.DealerId" type="checkbox" value="De-Active" />
+                    }
+                </div>
+
+            </div><!-- /.col -->
+
+           
+        </div>
+
+
+
+    </div><!-- /.box-body -->
+
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            @if (!string.IsNullOrEmpty(Model.ProfileImage))
+            {
+                <h3 class="box-title">Update dealer Image</h3>
+            }
+            else
+            {
+                <h3 class="box-title">Upload dealer Image</h3>
+            }
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="sucessUploadImagealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Image Uploaded Successfully.</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    @if (!string.IsNullOrEmpty(Model.ProfileImage))
+                    {
+                        <label class="pull-left">Update dealer image here </label>
+                    }
+                    else
+                    {
+                        <label class="pull-left">Upload dealer image here </label>
+                    }
+
+
+                </div>
+                <div class="col-md-6">
+                    @if (!string.IsNullOrEmpty(Model.ProfileImage))
+                    {
+                        <div class="col-md-4">
+                            <img id="dealer-profile-image" style="height: 30px;" src="@Model.ProfileImage" alt="profile image" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-4">
+                            <img id="dealer-profile-image" style="height: 30px;" src="~/Content/images/No-image-found.jpg" alt="profile image" />
+                        </div>
+                    }
+                    <form id="fileupload" action="/Upload/UploadDealerImageHandler.ashx" method="POST" enctype="multipart/form-data">
+                        <div class="fileupload-buttonbar">
+                            <div class="span7">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="fa fa-plus-circle"> Add file</i>
+                                    <input type="file" name="files[]">
+                                </span>
+                                <button type="button" id="btnImageUpload" class="btn btn-primary start" data-uniqueid='@Model.DealerId' data-type='newhome'>
+
+                                    @if (!string.IsNullOrEmpty(Model.ProfileImage))
+                                    {
+                                        <i class="fa fa-cloud-upload"> Update Image</i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-cloud-upload">Upload Image</i>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                        <table class="table table-striped" id="tblImage"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+
+
+
+
+
+                        @*<a data-toggle="tooltip" data-placement="top" title="Click here to send activation mail." id="btnactive_" class="btn btn-block btn-primary pull-right" href="javascript:SendActivationMail();">Upload</a>*@
+                    </form>
+
+
+
+                </div>
+
+            </div><!-- /.col -->
+
+
+        </div>
+
+
+
+    </div>
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Upload Chat Script</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="sucessUploadScriptlert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Script Uploaded Successfully.</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(m => m.ChatScript, new { @class = "form-control", id = "taScript" })
+                </div>
+                <div class="col-md-4">
+                    <input id="btnScriptUpld" type="button" value="Upload Script" class="btn btn-primary start" data-uniqueid='@Model.DealerId' data-type='newhome' />
+                    @*<a href="/auto/new-auto" class="btn btn-info">Add New Car</a>*@
+                </div>
+
+            </div><!-- /.col -->
+
+
+        </div>
+
+        <div class="pull-left">
+            <a href="/dealer/dealer-listing?liId=dealerList" class="btn btn-info">Back</a>
+
+        </div>
+
+    </div>
+    <!-- /.box -->
+</section>
+
+@section css
+{
+    <style>
+        .top-buffer {
+            margin-top: 20px;
+        }
+    </style>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+
+}
+
+
+
+@section scripts
+{
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js?cdv=1"></script>
+
+    <script src="~/Content/FileuploaderJs/tmpl.min.js"></script>
+    <script src="~/Content/FileuploaderJs/canvas-to-blob.min.js"></script>
+    <script src="~/Content/FileuploaderJs/load-image.min.js"></script>
+    <script src="~/Content/FileuploaderJs/bootstrap-image-gallery.min.js"></script>
+
+
+
+    <script src="~/Content/FileuploaderJs/jquery.iframe-transport.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ip.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ui.js"></script>
+
+    <script src="~/Content/FileuploaderJs/locale.js"></script>
+    @*<script src="~/Content/FileuploaderJs/main.js"></script>*@
+
+
+    <script type="text/javascript">
+        (function ($) {
+            $('#btnScriptUpld').on('click', function () {
+
+                // console.log(imageLst);
+                debugger;
+                var uniqueId = $('#btnScriptUpld').data("uniqueid");
+                //var type = $('#btnScriptUpld').data("type");
+                var formData = {
+                    Script: $('#taScript').val(),
+                };
+                $.ajax({
+                    url: "/dealer/script/" + uniqueId,
+                    type: "POST",
+                    data: { Script: $('#taScript').val() },
+                    success: function (data) {
+                        if (data) {
+                            $("#sucessUploadScriptlert").show();
+                            $('#sucessUploadScriptlert').delay(5000).fadeOut(400);
+                        } else {
+                            //$("#failureUploadImagealert").show();
+                            //$('#failureUploadImagealert').delay(5000).fadeOut(400);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#failureUploadImagealert").show();
+                        $('#failureUploadImagealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+    </script>
+
+
+
+    <script>
+        $(function () {
+            'use strict';
+            var url = "http://" + $(location).attr('host') + "/SDRE/@Model.DealerId";
+            $('#fileupload').fileupload();
+            $('#fileupload').
+                fileupload('option', {
+                    maxFileSize: 500000000,
+                    resizeMaxWidth: 1920,
+                    resizeMaxHeight: 1200,
+                    formData: { agentId: '@Model.DealerId' }
+
+                })
+                .bind('fileuploaddone', function (e, data) {
+                    $("#sucessUploadImagealert").show();
+                    $('#sucessUploadImagealert').delay(5000).fadeOut(400);
+                    // console.log(url);
+                    $('#dealer-profile-image').attr('src', url + "/" + data.files[0].name).load(function () {
+                        this.height;   // Note: $(this).width() will not work for in memory images
+
+                    });
+                })
+            ;
+        });
+    </script>
+
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade">
+            <td class="preview"><span class="fade"></span></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else if (o.files.valid && !i) { %}
+
+            <td class="start">
+                {% if (!o.options.autoUpload) { %}
+                <button style="display:none" class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+                {% } %}
+            </td>
+            {% } else { %}
+            <td colspan="2"></td>
+            {% } %}
+
+        </tr>
+        {% } %}
+    </script>
+    <script id="template-download" type="text/x-tmpl">
+        Uploaded successfully!
+    </script>
+    @*<script src="~/Scripts/custom/user-listing.js"></script>*@
+    <script type="text/javascript">
+        function EditUser(uniqueid) {
+            window.location.href = "/dealer/edit/" + uniqueid + '/' + true;
+        }
+        (function ($) {
+
+            if ('@Model.IsEmailSend') {
+                $("#btnmail").val("ReSend");
+            } else {
+                $("#btnmail").val("Send");
+            }
+        })(jQuery);
+
+        (function ($) {
+            $('#btnactive_').on('click', function () {
+                debugger;
+                var uniquid = $('#btnactive_').data("uniqueid");
+                var text = $('#btnactive_').attr("value");
+                var IsActivated = true;
+                if (text == "Active") {
+                    IsActivated = false;
+                }
+                $.ajax({
+                    url: "/dealer/dealer-deactivation/" + uniquid,
+                    type: "POST",
+                    data: { isActivated: IsActivated },
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            if (IsActivated) {
+                                $("#deletealert").show();
+                                $('#deletealert').delay(5000).fadeOut(400);
+                            } else {
+                                $("#activealert").show();
+                                $('#activealert').delay(5000).fadeOut(400);
+                            }
+                        } else {
+                            $("#deletefailurealert").show();
+                            $('#deletefailurealert').delay(5000).fadeOut(400);
+                        }
+                        if (IsActivated) {
+                            $('#btnactive_').attr("value", "Active");
+                        } else {
+                            $('#btnactive_').attr("value", "De-Active");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#deletefailurealert").show();
+                        $('#deletefailurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#btnmail').on('click', function () {
+
+                var uniquid = $('#btnmail').data("uniqueid");
+                $.ajax({
+                    url: "/dealer/dealer-activation/" + uniquid,
+                    type: "POST",
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            $('#btnmail').attr("value", "Re-Send");
+                            $("#mailActivealert").show();
+                            $('#mailActivealert').delay(5000).fadeOut(400);
+                        } else {
+                            $("#deletefailurealert").show();
+                            $('#deletefailurealert').delay(5000).fadeOut(400);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#deletefailurealert").show();
+                        $('#deletefailurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#chkIsFeatured').change(function () {
+                debugger;
+                var uniquid = $('#chkIsFeatured').data("uniqueid");
+                var text = $('#chkIsFeatured').attr("value");
+                var IsActivated = true;
+                if (text == "Active") {
+                    IsActivated = false;
+                }
+                $.ajax({
+                    url: "/dealer/dealer-featured/" + uniquid,
+                    type: "POST",
+                    data: { isActivated: IsActivated },
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            if (IsActivated) {
+                                $("#featuredActivealert").show();
+                                $('#featuredActivealert').delay(5000).fadeOut(400);
+                            } else {
+                                $("#featuredDeActivealert").show();
+                                $('#featuredDeActivealert').delay(5000).fadeOut(400);
+                            }
+                        } else {
+                            $("#deletefailurealert").show();
+                            $('#deletefailurealert').delay(5000).fadeOut(400);
+                        }
+                        if (IsActivated) {
+                            $('#chkIsFeatured').attr("checked", "checked");
+                            $('#chkIsFeatured').attr("value", "Active");
+                        } else {
+                            $('#chkIsFeatured').attr("value", "De-Active");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#deletefailurealert").show();
+                        $('#deletefailurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#chkIsMarketVal').change(function () {
+                debugger;
+                var uniquid = $('#chkIsMarketVal').data("uniqueid");
+                var text = $('#chkIsMarketVal').attr("value");
+                var IsActivated = true;
+                if (text == "Active") {
+                    IsActivated = false;
+                }
+                $.ajax({
+                    url: "/dealer/dealer-marketval/" + uniquid,
+                    type: "POST",
+                    data: { isActivated: IsActivated },
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            if (IsActivated) {
+                                $("#marketvalActivealert").show();
+                                $('#marketvalActivealert').delay(5000).fadeOut(400);
+                            } else {
+                                $("#marketvalDeActivealert").show();
+                                $('#marketvalDeActivealert').delay(5000).fadeOut(400);
+                            }
+                        } else {
+                            $("#deletefailurealert").show();
+                            $('#deletefailurealert').delay(5000).fadeOut(400);
+                        }
+                        if (IsActivated) {
+                            $('#chkIsMarketVal').attr("checked", "checked");
+                            $('#chkIsMarketVal').attr("value", "Active");
+                        } else {
+                            $('#chkIsMarketVal').attr("value", "De-Active");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#deletefailurealert").show();
+                        $('#deletefailurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#chkIsOwnershipCost').change(function () {
+                debugger;
+                var uniquid = $('#chkIsOwnershipCost').data("uniqueid");
+                var text = $('#chkIsOwnershipCost').attr("value");
+                var IsActivated = true;
+                if (text == "Active") {
+                    IsActivated = false;
+                }
+                $.ajax({
+                    url: "/dealer/dealer-ownershipcost/" + uniquid,
+                    type: "POST",
+                    data: { isActivated: IsActivated },
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            if (IsActivated) {
+                                $("#ownershipcostActivealert").show();
+                                $('#ownershipcostActivealert').delay(5000).fadeOut(400);
+                            } else {
+                                $("#ownershipcostDeActivealert").show();
+                                $('#ownershipcostDeActivealert').delay(5000).fadeOut(400);
+                            }
+                        } else {
+                            $("#deletefailurealert").show();
+                            $('#deletefailurealert').delay(5000).fadeOut(400);
+                        }
+                        if (IsActivated) {
+                            $('#chkIsOwnershipCost').attr("checked", "checked");
+                            $('#chkIsOwnershipCost').attr("value", "Active");
+                        } else {
+                            $('#chkIsOwnershipCost').attr("value", "De-Active");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#deletefailurealert").show();
+                        $('#deletefailurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+
+    </script>
+}
+

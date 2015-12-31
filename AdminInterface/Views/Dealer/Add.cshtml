@@ -1,0 +1,562 @@
+﻿@{
+    ViewBag.Title = "Add";
+    //Layout = null;
+}
+@model Repository.Models.Admin.Dealer.User
+
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            @if (ViewBag.isEdit == "F")
+            {
+                <h3 class="box-title">Add New Dealer Here</h3>
+            }
+            else if (ViewBag.isEdit == "T")
+            {
+                <h3 class="box-title">Edit Dealer Here</h3>
+            }
+
+
+            @*<div class="pull">
+                    <a href="/dealer/dealer-listing-ajax-handler/" class="btn btn-info">Back</a>
+                </div>*@
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @if (ViewBag.isEdit == "F")
+                    {
+                        <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Dealer Added Successfully.</h4>
+                            <span></span>
+                        </div>
+                    }
+                    else if (ViewBag.isEdit == "T")
+                    {  <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Dealer Updated Successfully.</h4>
+                        <span></span>
+                    </div>
+                    }
+                    <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>
+                    <div id="duplicatealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Dealer Already Exists</h4>
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Name")
+                        @Html.TextBoxFor(m => m.DealerName, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Address")
+                        @Html.TextBoxFor(m => m.DealerAddress, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("City")
+                        @Html.TextBoxFor(m => m.DealerCity, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("State")
+
+                        @Html.TextBoxFor(m => m.DealerState, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Zip")
+                        @Html.TextBoxFor(m => m.DealerZip, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Phone")
+
+                        @Html.TextBoxFor(m => m.DealerPhone, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Email")
+                        @Html.TextBoxFor(m => m.DealerEmail, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Bio")
+                        @Html.TextAreaFor(m => m.DealerBio, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Featured Dealer")
+                        @*@if (Model.IsFeatured)
+                            {*@
+                        <input id="chkIsFeaturedAdd" data-uniqueid="@Model.DealerId" name="chkIsFeaturedAdd" type="checkbox" />
+                        @*}*@
+                        @*else
+                            {
+                                <input id="chkIsFeatured" data-uniqueid="@Model.DealerId" type="checkbox" value="De-Active" />
+                            }*@
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    @Html.Label("Certified Dealer")
+                    <div class="form-group">
+                        @*@if (Model.IsCertified)
+                            {*@
+                        <input id="chkIsCertifiedAdd" name="chkIsCertifiedAdd" data-uniqueid="@Model.DealerId" type="checkbox" />
+                        @*}*@
+                        @*else
+                            {
+                                <input id="chkIsCertified" data-uniqueid="@Model.DealerId" type="checkbox" value="De-Active" />
+                            }*@
+
+
+                    </div>
+                </div><!-- /.col -->
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @*<div class="form-group pull-left">
+                            @if (!string.IsNullOrEmpty(@Model.DealerId))
+                            {
+                                <div class="form-group">
+                                    <a class="btn btn-primary" href="javascript:ManageUser('@Model.DealerId');">Manage</a>
+                                </div>
+                            }
+                        </div>*@
+                    <div class="form-group pull-left">
+                        @if (ViewBag.isEdit == "F")
+                        {
+                            <a href="/dealer/dealer-listing?liId=dealerList" class="btn btn-info">Back</a>
+                        }
+                        else if (ViewBag.isEdit == "T")
+                        {
+                            <a href="/dealer/manage/@Model.DealerId" class="btn btn-info">Back</a>
+                        }
+
+                    </div>
+                    <div class="form-group pull-right">
+                        @if (ViewBag.isEdit == "F")
+                        {
+                            <input type="button" class="btn btn-primary btn-block " value="Add" onclick="AddAgent(this)" data-loading-text="Please wait..." />
+                        }
+                        else if (ViewBag.isEdit == "T")
+                        {
+                            <input type="button" class="btn btn-primary btn-block " value="Update" onclick="EditAgent(this)" data-loading-text="Please wait..." />
+                        }
+                    </div><!-- /.form-group -->
+                </div><!-- /.col -->
+            </div>
+        </div><!-- /.box-body -->
+    </div>
+    <div class="box box-default hide" id="UploadImageBox">
+        <div class="box-header with-border">
+            <h3 class="box-title">Upload Dealer Image</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <label class="pull-left">Upload Dealer image here </label>
+                </div>
+                <div class="col-md-4">
+                    <form id="fileupload" action="/Upload/UploadDealerImageHandler.ashx" method="POST" enctype="multipart/form-data">
+                        <div class="fileupload-buttonbar">
+                            <div class="span7">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="fa fa-plus-circle"></i>
+                                    <input type="file" name="files[]">
+                                </span>
+                                <button type="button" id="btnImageUpload" class="btn btn-primary start" data-uniqueid='@Model.DealerId' data-type='newhome'>
+                                    <i class="fa fa-cloud-upload"></i>
+                                </button>
+                                @if (Model.DealerId != null)
+                                {
+                                    <input type="hidden" id="hddnDealerId" value="@Model.DealerId" />
+
+                                }
+                            </div>
+                        </div>
+                        <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+                        @*<a data-toggle="tooltip" data-placement="top" title="Click here to send activation mail." id="btnactive_" class="btn btn-block btn-primary pull-right" href="javascript:SendActivationMail();">Upload</a>*@
+                    </form>
+
+                </div>
+
+            </div><!-- /.col -->
+        </div>
+    </div>
+</section>
+@section css
+{
+    <style>
+        .top-buffer {
+            margin-top: 20px;
+        }
+    </style>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+
+}
+@section scripts
+{
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js?cdv=1"></script>
+
+    <script src="~/Content/FileuploaderJs/tmpl.min.js"></script>
+    <script src="~/Content/FileuploaderJs/canvas-to-blob.min.js"></script>
+    <script src="~/Content/FileuploaderJs/load-image.min.js"></script>
+    <script src="~/Content/FileuploaderJs/bootstrap-image-gallery.min.js"></script>
+
+
+
+    <script src="~/Content/FileuploaderJs/jquery.iframe-transport.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ip.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ui.js"></script>
+
+    <script src="~/Content/FileuploaderJs/locale.js"></script>
+    <script>
+        $(function () {
+            'use strict';
+            debugger;
+            // Initialize the jQuery File Upload widget:
+
+        });
+    </script>
+
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade">
+            <td class="preview"><span class="fade"></span></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else if (o.files.valid && !i) { %}
+
+            <td class="start">
+                {% if (!o.options.autoUpload) { %}
+                <button style="display:none" class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+                {% } %}
+            </td>
+            {% } else { %}
+            <td colspan="2"></td>
+            {% } %}
+
+        </tr>
+        {% } %}
+    </script>
+    <script id="template-download" type="text/x-tmpl">
+        Uploaded successfully!
+    </script>
+    <script>
+        function ManageUser(DealerId) {
+            var uniqueid = DealerId;
+            window.location.href = "/dealer/manage/" + uniqueid;
+        }
+
+        (function ($) {
+            $('#chkIsFeatured').change(function () {
+                debugger;
+                var uniquid = $('#chkIsFeatured').data("uniqueid");
+                var text = $('#chkIsFeatured').attr("value");
+                var IsActivated = true;
+                if (text == "Active") {
+                    IsActivated = false;
+                }
+                $.ajax({
+                    url: "/dealer/dealer-featured/" + uniquid,
+                    type: "POST",
+                    data: { isActivated: IsActivated },
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            if (IsActivated) {
+                                $("#featuredActivealert").show();
+                                $('#featuredActivealert').delay(5000).fadeOut(400);
+                            } else {
+                                $("#featuredDeActivealert").show();
+                                $('#featuredDeActivealert').delay(5000).fadeOut(400);
+                            }
+                        } else {
+                            $("#deletefailurealert").show();
+                            $('#deletefailurealert').delay(5000).fadeOut(400);
+                        }
+                        if (IsActivated) {
+                            $('#chkIsFeatured').attr("checked", "checked");
+                            $('#chkIsFeatured').attr("value", "Active");
+                        } else {
+                            $('#chkIsFeatured').attr("value", "De-Active");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#deletefailurealert").show();
+                        $('#deletefailurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+
+        function AddAgent(btn) {
+            debugger;
+            var DealerName = $("#DealerName").val();
+            var DealerAddress = $("#DealerAddress").val();
+            var DealerCity = $("#DealerCity").val();
+            var DealerState = $("#DealerState").val();
+            var DealerZip = $("#DealerZip").val();
+            var DealerPhone = $("#DealerPhone").val();
+            var DealerEmail = $("#DealerEmail").val();
+            var DealerBio = $("#DealerBio").val();
+            // var uniquid = $('#chkIsFeatured').data("uniqueid");
+            //var text = $('#chkIsFeaturedAdd').prop('checked');
+            //var IsFeatured = true;
+            //if (text == "Active") {
+            IsFeatured = $('#chkIsFeaturedAdd').prop('checked');
+            //}
+            //else {
+            //    IsFeatured = false;
+            //}
+
+            //var text = $('#chkIsCertifiedAdd').prop('checked');
+
+
+            //if (text == "Active") {
+            IsCertified = $('#chkIsCertifiedAdd').prop('checked');;
+            //}
+            //else {
+            //    IsCertified = false;
+            //}
+
+
+            var formData = {
+
+                "DealerName": DealerName,
+                "DealerAddress": DealerAddress,
+                "DealerCity": DealerCity,
+                "DealerState": DealerState,
+                "DealerZip": DealerZip,
+                "DealerPhone": DealerPhone,
+                "DealerEmail": DealerEmail,
+                "IsFeatured": IsFeatured,
+                "IsCertified": IsCertified,
+                "DealerBio": DealerBio
+            };
+
+            $(btn).button('loading').queue(function () {
+                debugger;
+                $.ajax({
+                    url: "/dealer/new-dealer",
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify(formData),
+                    success: function (data, textStatus, jqXHR) {
+                        if (data.success) {
+                            if (data.IsDuplicate == "T") {
+                                $("#duplicatealert").show();
+                                $('#duplicatealert').delay(5000).fadeOut(400);
+                            }
+                            else {
+                                debugger;
+                                $("#sucessalert").show();
+                                $('#sucessalert').delay(5000).fadeOut(400);
+                                debugger;
+                                $('#UploadImageBox').removeClass('hide');
+                                $('#fileupload').fileupload();
+
+                                $('#fileupload').fileupload('option', {
+                                    maxFileSize: 500000000,
+                                    resizeMaxWidth: 1920,
+                                    resizeMaxHeight: 1200,
+                                    formData: { agentId: data.ParticipantId },
+                                    done: function (e, data) {
+                                        debugger;
+                                    }
+
+                                });
+                            }
+
+
+                        } else {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#failurealert").show();
+                        $('#failurealert').delay(5000).fadeOut(400);
+                    },
+                    compete: function () {
+                        $(btn).button('reset');
+                        $(btn).dequeue();
+                    }
+                });
+            });
+
+
+        }
+
+        function EditAgent(btn) {
+            debugger;
+            var DealerName = $("#DealerName").val();
+            var DealerAddress = $("#DealerAddress").val();
+            var DealerCity = $("#DealerCity").val();
+            var DealerState = $("#DealerState").val();
+            var DealerZip = $("#DealerZip").val();
+            var DealerPhone = $("#DealerPhone").val();
+            var DealerEmail = $("#DealerEmail").val();
+            var DealerId = $("#hddnDealerId").val();
+            var DealerBio = $("#DealerBio").val();
+            // var uniquid = $('#chkIsFeatured').data("uniqueid");
+            //var text = $('#chkIsFeaturedAdd').prop('checked');
+            //var IsFeatured = true;
+            //if (text == "Active") {
+            IsFeatured = $('#chkIsFeaturedAdd').prop('checked');
+            //}
+            //else {
+            //    IsFeatured = false;
+            //}
+
+            //var text = $('#chkIsCertifiedAdd').prop('checked');
+
+
+            //if (text == "Active") {
+            IsCertified = $('#chkIsCertifiedAdd').prop('checked');;
+            //}
+            //else {
+            //    IsCertified = false;
+            //}
+
+
+            var formData = {
+                "DealerId": DealerId,
+                "DealerName": DealerName,
+                "DealerAddress": DealerAddress,
+                "DealerCity": DealerCity,
+                "DealerState": DealerState,
+                "DealerZip": DealerZip,
+                "DealerPhone": DealerPhone,
+                "DealerEmail": DealerEmail,
+                "IsFeatured": IsFeatured,
+                "IsCertified": IsCertified,
+                "DealerBio": DealerBio
+            };
+
+            $(btn).button('loading').queue(function () {
+                $.ajax({
+                    url: "/dealer/edit-dealer",
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify(formData),
+                    success: function (data, textStatus, jqXHR) {
+                        if (data.success) {
+                            if (data.IsDuplicate == "T") {
+                                $("#duplicatealert").show();
+                                $('#duplicatealert').delay(5000).fadeOut(400);
+                            }
+                            else {
+                                $("#sucessalert").show();
+                                $('#sucessalert').delay(5000).fadeOut(400);
+                                debugger;
+                                $('#UploadImageBox').removeClass('hide');
+                                $('#fileupload').fileupload();
+
+                                $('#fileupload').fileupload('option', {
+                                    maxFileSize: 500000000,
+                                    resizeMaxWidth: 1920,
+                                    resizeMaxHeight: 1200,
+                                    formData: { agentId: data.ParticipantId },
+                                    done: function (e, data) {
+                                        debugger;
+                                    }
+
+                                });
+                            }
+                        } else {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#failurealert").show();
+                        $('#failurealert').delay(5000).fadeOut(400);
+                    },
+                    compete: function () {
+                        $(btn).button('reset');
+                        $(btn).dequeue();
+                    }
+                });
+            });
+
+
+        }
+
+
+
+        (function ($) {
+            $('#btnImageUpload').on('click', function () {
+                $("#sucessUploadImagealert").show();
+                $('#sucessUploadImagealert').delay(5000).fadeOut(400);
+            });
+        })(jQuery);
+    </script>
+}
